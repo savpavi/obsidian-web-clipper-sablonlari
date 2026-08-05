@@ -1,4 +1,4 @@
-import sys, unittest
+import sys, unittest, json, tempfile
 from pathlib import Path
 
 KOK = Path(__file__).resolve().parent.parent
@@ -43,6 +43,42 @@ class BuildTest(unittest.TestCase):
     def test_uretilen_sablonlarda_id_alani_var(self):
         for tid in self.ayarlar["template_list"]:
             self.assertEqual(self.ayarlar[f"template_{tid}"]["id"], tid)
+
+    def test_eksik_sablon_dosyasi_hata_verir(self):
+        """_order.json adı geçen ama dosyası yok → FileNotFoundError."""
+        varsayilan = json.loads(
+            (SABLON_DIZINI / "varsayilan.json").read_text(encoding="utf-8")
+        )
+        with tempfile.TemporaryDirectory() as tmpdir:
+            tmpdir = Path(tmpdir)
+            (tmpdir / "_order.json").write_text(
+                json.dumps(["varsayilan", "kayip"]), encoding="utf-8"
+            )
+            (tmpdir / "varsayilan.json").write_text(
+                json.dumps(varsayilan), encoding="utf-8"
+            )
+            with self.assertRaises(FileNotFoundError) as ctx:
+                build_settings(tmpdir)
+            self.assertIn("kayip", str(ctx.exception))
+
+    def test_kurallari_ihlal_eden_sablon_hata_verir(self):
+        """Doğrulama başarısız sablon → ValueError, dosya adı hata mesajında."""
+        varsayilan = json.loads(
+            (SABLON_DIZINI / "varsayilan.json").read_text(encoding="utf-8")
+        )
+        with tempfile.TemporaryDirectory() as tmpdir:
+            tmpdir = Path(tmpdir)
+            (tmpdir / "_order.json").write_text(
+                json.dumps(["bozuk"]), encoding="utf-8"
+            )
+            bozuk = varsayilan.copy()
+            bozuk["path"] = "yanlis"
+            (tmpdir / "bozuk.json").write_text(
+                json.dumps(bozuk), encoding="utf-8"
+            )
+            with self.assertRaises(ValueError) as ctx:
+                build_settings(tmpdir)
+            self.assertIn("bozuk.json", str(ctx.exception))
 
 
 if __name__ == "__main__":
