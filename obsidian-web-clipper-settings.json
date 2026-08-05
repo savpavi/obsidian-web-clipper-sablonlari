@@ -8,6 +8,7 @@
     "sblreddit",
     "sblinstagram",
     "sbllinkedin",
+    "sblurun",
     "sblmakale"
   ],
   "vaults": [
@@ -48,7 +49,17 @@
       "defaultValue": ""
     },
     {
+      "name": "availability",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
       "name": "baslik",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
+      "name": "brand",
       "type": "text",
       "defaultValue": ""
     },
@@ -60,6 +71,11 @@
     {
       "name": "created",
       "type": "date",
+      "defaultValue": ""
+    },
+    {
+      "name": "currency",
+      "type": "text",
       "defaultValue": ""
     },
     {
@@ -98,6 +114,16 @@
       "defaultValue": ""
     },
     {
+      "name": "price",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
+      "name": "rating",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
       "name": "repo",
       "type": "text",
       "defaultValue": ""
@@ -124,6 +150,11 @@
     },
     {
       "name": "stars",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
+      "name": "store",
       "type": "text",
       "defaultValue": ""
     },
@@ -754,6 +785,105 @@
       }
     ],
     "id": "sbllinkedin"
+  },
+  "template_sblurun": {
+    "schemaVersion": "0.1.0",
+    "name": "Ürün",
+    "behavior": "create",
+    "path": "00 Inbox",
+    "context": "",
+    "triggers": [
+      "schema:@Product"
+    ],
+    "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- Urun -- {{schema:@Product:name|safe_name:linux|slice:0,60}}",
+    "noteContentFormat": "{{schema:@Product:image|first|image:\"ürün\"}}\n\n---\n\n## Detaylar\n\n| | |\n|---|---|\n| **Fiyat** | {{schema:@Product:offers:price}} {{schema:@Product:offers:priceCurrency}} |\n| **Mağaza** | {{site}} |\n| **Marka** | {{schema:@Product:brand:name}} |\n| **Durum** | {{schema:@Product:offers:availability|replace:\"https://schema.org/\":\"\"}} |\n| **Puan** | {{schema:@Product:aggregateRating:ratingValue}}/5 ({{schema:@Product:aggregateRating:reviewCount}} değerlendirme) |\n\n## Açıklama\n\n{{schema:@Product:description|slice:0,1000|trim}}\n\n---\n\n## Notlar\n\n",
+    "properties": [
+      {
+        "name": "type",
+        "value": "referans",
+        "type": "text",
+        "id": "sblurunp0"
+      },
+      {
+        "name": "date",
+        "value": "{{date|date:\"YYYY-MM-DD\"}}",
+        "type": "date",
+        "id": "sblurunp1"
+      },
+      {
+        "name": "created",
+        "value": "{{date|date:\"YYYY-MM-DD\"}}",
+        "type": "date",
+        "id": "sblurunp2"
+      },
+      {
+        "name": "tags",
+        "value": "kaynak, kaynak/urun",
+        "type": "multitext",
+        "id": "sblurunp3"
+      },
+      {
+        "name": "source",
+        "value": "{{url}}",
+        "type": "text",
+        "id": "sblurunp4"
+      },
+      {
+        "name": "source_type",
+        "value": "urun",
+        "type": "text",
+        "id": "sblurunp5"
+      },
+      {
+        "name": "title",
+        "value": "{{schema:@Product:name}}",
+        "type": "text",
+        "id": "sblurunp6"
+      },
+      {
+        "name": "price",
+        "value": "{{schema:@Product:offers:price}}",
+        "type": "text",
+        "id": "sblurunp7"
+      },
+      {
+        "name": "currency",
+        "value": "{{schema:@Product:offers:priceCurrency}}",
+        "type": "text",
+        "id": "sblurunp8"
+      },
+      {
+        "name": "store",
+        "value": "{{site}}",
+        "type": "text",
+        "id": "sblurunp9"
+      },
+      {
+        "name": "brand",
+        "value": "{{schema:@Product:brand:name}}",
+        "type": "text",
+        "id": "sblurunp10"
+      },
+      {
+        "name": "rating",
+        "value": "{{schema:@Product:aggregateRating:ratingValue}}",
+        "type": "text",
+        "id": "sblurunp11"
+      },
+      {
+        "name": "availability",
+        "value": "{{schema:@Product:offers:availability|replace:\"https://schema.org/\":\"\"}}",
+        "type": "text",
+        "id": "sblurunp12"
+      },
+      {
+        "name": "image",
+        "value": "{{schema:@Product:image|first}}",
+        "type": "text",
+        "id": "sblurunp13"
+      }
+    ],
+    "id": "sblurun"
   },
   "template_sblmakale": {
     "schemaVersion": "0.1.0",
