@@ -120,9 +120,36 @@ Tümü `00 Inbox`.
 
 ## Şablonlar
 
-Sıralama kritik: Web Clipper listedeki **ilk eşleşen** şablonu kullanır.
-Dar regex'ler üstte, geniş şema tetikleyicileri altta, yakalanmayan her şey
-Varsayılan'a.
+### Eşleşme mekaniği (kaynak koddan doğrulandı, 2026-08-05)
+
+Tasarım aşamasındaki "listede ilk eşleşen kazanır" varsayımı **yanlıştı**.
+`src/utils/triggers.ts` üç kademeli bir öncelik uyguluyor ve kademe sırasını
+**liste sırası değil, tetikleyici türü** belirliyor:
+
+1. **URL öneki** (trie, en uzun eşleşme) — örn. `https://www.youtube.com/watch`
+2. **Regex** — `/^https:\/\/...$/`
+3. **Şema** — `schema:@Product`; yalnızca ilk ikisi başarısızsa denenir
+
+Sonuçları:
+
+- LinkedIn regex'i, Makale'nin `@Article` şemasını **her zaman** yener. Liste
+  sırasından bağımsız olarak `/pulse/` ayrımı doğru çalışır.
+- Ürün (`@Product`) ile Makale (`@Article`) aynı kademede; ikisi de eşleşirse
+  liste sırası belirleyici olur — Ürün, Makale'den önce gelmeli.
+
+### Varsayılan şablon listenin BAŞINDA olmalı
+
+`findMatchingTemplate` hiçbir eşleşme bulamazsa `undefined` döndürüyor; fallback
+`src/core/popup.ts` içindeki `currentTemplate = templates[0]` satırı, yani
+**dizideki ilk şablon**.
+
+Onaylanan tasarımda Varsayılan en sondaydı — bu haliyle eşleşmeyen bir sayfa
+Ekşi Entry şablonuna düşerdi. Düzeltilmiş sıra:
+
+```
+template_list[0] = Varsayılan   ← fallback, tetikleyicisi yok
+sonra: Ekşi Entry, YouTube, GitHub, X, Reddit, Instagram, LinkedIn, Ürün, Makale
+```
 
 ### 1. Ekşi Entry
 
@@ -235,21 +262,59 @@ Varsayılan'a.
 Vault dosyalarına yama **doğrudan uygulanmaz** — hazırlanır, kullanıcı onayından
 sonra işlenir.
 
-## Uygulama öncesi doğrulanacaklar
+## Doğrulama sonuçları (2026-08-05)
 
-Hafızadan yazılmayacak, resmî Obsidian Web Clipper dokümanına bakılarak teyit
-edilecek noktalar:
+Resmî doküman ve `obsidianmd/obsidian-clipper` kaynak kodu üzerinden teyit
+edildi. Tasarımı değiştiren bulgular:
 
-1. **`{{highlights}}` değişkeninin tam sözdizimi** — dizi mi döndürüyor, hangi
-   filtre ile (`|map`, `|template`, `|blockquote`) markdown'a çevriliyor.
-   Makale ve Varsayılan şablonlarını doğrudan etkiler.
-2. **Reddit `shreddit-*` seçicileri** — `shreddit-post?post-title`,
+### `{{highlights}}` yapısı
+
+Dizi döndürüyor; her eleman `{ type, id, xpath, content, startOffset, endOffset }`.
+Metin **`text` değil `content` anahtarında** ve **HTML** biçiminde. Doğru render:
+
+```
+{{highlights|map: item => item.content|join:"\n\n"|markdown|blockquote}}
+```
+
+`{{content}}` ise tam makaleyi döndürmeye devam ediyor — vurgular
+`highlightBehavior: "highlight-inline"` ayarında `<mark>` olarak gövdeye
+gömülüyor, gövdenin yerine geçmiyor. Yani "vurgular üstte + tam metin altta"
+tasarımı geçerli.
+
+**Test edilecek:** Vurgu yokken `## Vurgular` bölümünün boş kalıp kalmadığı.
+Çözüm olarak başlık yerine `|callout:("quote", "Vurgular")` filtresi kullanılıyor;
+boş dizide tamamen kaybolup kaybolmadığı canlı klip testiyle doğrulanacak.
+
+### `meta:` sözdizimi
+
+Doğru biçim `{{meta:property:og:title}}` — eski dosyadaki `{{meta:og:site_name}}`
+eksik. Site adı için zaten hazır bir değişken var: `{{site}}`.
+
+### Yararlı hazır değişken ve filtreler
+
+`{{site}}`, `{{domain}}`, `{{image}}`, `{{words}}`, `{{selection}}` hazır
+değişkenler. `|duration:"HH:mm:ss"` filtresi ISO 8601 süreyi çeviriyor —
+YouTube için `|replace` zincirinin yerini alıyor. `|safe_name:linux` platforma
+özgü biçim veriyor.
+
+### Eski dosyada ölü veri
+
+`obsidian-web-clipper-settings.json` içindeki `"0"`–`"5"` numaralı anahtarlar
+eski bir depolama biçiminden kalma yinelenmiş şablonlar (`path` değerleri hâlâ
+`Clippings/Articles`). Yeni üretilen dosyaya taşınmayacak.
+
+## Canlı klip testiyle doğrulanacaklar
+
+Statik olarak doğrulanamayan, gerçek sayfa klipslenerek sınanacak noktalar:
+
+1. **Reddit `shreddit-*` seçicileri** — `shreddit-post?post-title`,
    `?subreddit-prefixed-name`, `?author`, `?score`, `?created-timestamp` ve
-   yorum ağacı seçicisi hâlâ geçerli mi.
-3. **Instagram ve LinkedIn seçicileri** — hangi `og:` alanları ve DOM
-   seçicileri gerçekten veri döndürüyor.
-4. **Şablon JSON şeması** — `schemaVersion`, `id` üretimi, `template_list`
-   sıralaması ve `property_types` kaydının içe aktarımda beklenen biçimi.
+   yorum ağacı seçicisi hâlâ geçerli mi
+2. **Instagram / LinkedIn `og:` alanları** — `og:title`'ın
+   `"Ad on Instagram: ..."` biçimini koruyup korumadığı
+3. **İç içe şema erişimi** — `{{schema:@Product:offers:price}}` (iki nokta) mı
+   yoksa `{{schema:@Product:offers.price}}` (nokta) mı çalışıyor
+4. **Boş vurgu davranışı** — yukarıda açıklandı
 
 ## Test kriteri
 
