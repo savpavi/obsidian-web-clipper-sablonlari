@@ -361,7 +361,7 @@
       "/^https:\\/\\/(www\\.)?eksisozluk\\.com\\/[^\\/?]+--\\d+/"
     ],
     "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- Eksi Klip -- {{title|split:\" - ekşi sözlük\"|first|safe_name:linux|slice:0,60}}",
-    "noteContentFormat": "> **{{title|split:\" - ekşi sözlük\"|first}}** · sayfa klibi · {{date|date:\"YYYY-MM-DD\"}}\n\n{{highlights|map: item => item.content|blockquote}}\n\n---\n\n{{selectorHtml:#entry-item-list|markdown|trim}}\n\n---\n\n## Notlar\n\n",
+    "noteContentFormat": "> **{{title|split:\" - ekşi sözlük\"|first}}** · sayfa klibi · {{date|date:\"YYYY-MM-DD\"}}\n\n---\n\n{{selectorHtml:#entry-item-list li div.content|join:\"\\n\\n---\\n\\n\"|markdown|trim}}\n\n---\n\n## Notlar\n\n",
     "properties": [
       {
         "name": "type",
@@ -418,10 +418,16 @@
         "id": "sbleksiklipp8"
       },
       {
+        "name": "author",
+        "value": "{{selector:#entry-item-list li a.entry-author}}",
+        "type": "multitext",
+        "id": "sbleksiklipp9"
+      },
+      {
         "name": "moc",
         "value": "[[Eksi Kaynaklari MOC]]",
         "type": "text",
-        "id": "sbleksiklipp9"
+        "id": "sbleksiklipp10"
       }
     ],
     "id": "sbleksiklip"

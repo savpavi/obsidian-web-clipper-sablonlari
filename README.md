@@ -196,11 +196,23 @@ Sonuçlar üretilen notlar okunarak çıkarıldı, beyana dayanmıyor.
 | LinkedIn Gönderi | ⏳ | Bu turda bir gönderi permalink'i denenmedi (yalnızca iş ilanı sayfası klipslendi, o da doğru şekilde Varsayılan'a düştü). |
 | Ekşi Klip | ⏳ | Bu turdan sonra eklendi, henüz denenmedi. |
 
-**Düzeltmelerden sonra yeniden test edilmesi gerekenler:** bir Trendyol/Amazon
-ürünü (fiyat ve marka dolu mu), bir tweet (gövdede metin var mı), bir Ekşi
-başlık sayfası (Ekşi Klip devreye giriyor mu), vurgusuz bir makale (boş kutu
-gitti mi). Ayrıca hiç denenmemiş üçlü: YouTube, LinkedIn gönderisi, Ekşi
-permalink.
+### İkinci tur (aynı gün, düzeltmelerden sonra)
+
+| Şablon | Durum | Bulgu |
+|---|---|---|
+| Ürün | ✅ | `price: 199.9`, `currency: TRY`, `brand`, `rating: 4`, `availability: InStock`, `image` gerçek URL. Detay tablosu tam doldu. Nokta gösterimi doğrulandı. |
+| X (Twitter) Post | ✅ | `title` artık tweet metni, gövdede metin var. Emoji `![🚨](...svg)` olarak geliyor — sadakatli ama biraz gürültülü. |
+| YouTube Video | ✅ | `title`, `channel`, `duration: 00:27:34` (`\|duration` filtresi çalışıyor), yayın tarihi dosya adında doğru, açıklama tam. |
+| Ekşi Klip | 🔧 düzeltildi | Tetikleyici ve frontmatter doğru, ama `#entry-item-list` her entry'nin paylaş/şikayet/modlog menüsünü de çekiyordu. Seçici `#entry-item-list li div.content` olarak daraltıldı, yazarlar ayrı alana alındı. |
+| LinkedIn Gönderi | ❌ | Instagram'la aynı: `title`, `author`, `description` boş, gövde ham feed iskeleti ve reklam takip URL'leri. `og:` etiketleri login duvarı arkasında veri taşımıyor. |
+| Boş vurgu | ⚠️ açık | Hâlâ tek bir `> ` satırı bırakıyor. Sebep yapısal: `map` JSON ayrıştıramadığı girdiyi `[""]` tek elemanlı diziye sarıyor (`src/utils/filters/map.ts` catch bloğu), `blockquote` da onu `> ` olarak basıyor. Vurgusuz her klipte bir satır. |
+
+**Boş vurgu satırı için karar bekliyor:** blok tamamen kaldırılabilir, çünkü
+highlighter `highlight-inline` modunda ve vurgular teorik olarak zaten
+`{{content}}` içine gömülü geliyor. Ama bu henüz **doğrulanmadı** — test
+turlarında hiç vurgu yapılmadığı için notlarda ne `==` ne `<mark>` var. Bir
+kez vurgu yapıp klipslemek sorunu kesin çözer: vurgular gövdede de
+görünüyorsa üstteki blok silinir ve `> ` satırı kendiliğinden gider.
 
 Test kriteri (bkz. tasarım dokümanı, "Test kriteri" bölümü): dosya adı
 `YYYY-MM-DD -- {{Kaynak}} -- {{Başlık}}` desenine uyuyor mu, frontmatter
