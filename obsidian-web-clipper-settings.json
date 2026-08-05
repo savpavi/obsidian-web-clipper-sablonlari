@@ -1,0 +1,168 @@
+{
+  "template_list": [
+    "sblvarsayilan"
+  ],
+  "vaults": [
+    "Aktif Kasa"
+  ],
+  "general_settings": {
+    "betaFeatures": false,
+    "legacyMode": false,
+    "openBehavior": "popup",
+    "saveBehavior": "addToObsidian",
+    "showMoreActionsButton": false,
+    "silentOpen": false
+  },
+  "highlighter_settings": {
+    "alwaysShowHighlights": true,
+    "highlightBehavior": "highlight-inline",
+    "highlighterEnabled": true
+  },
+  "interpreter_settings": {
+    "defaultPromptContext": "",
+    "interpreterAutoRun": false,
+    "interpreterEnabled": false,
+    "interpreterModel": "",
+    "models": [],
+    "providers": []
+  },
+  "reader_settings": {
+    "fontSize": 1.5,
+    "lineHeight": 1.6,
+    "maxWidth": 38,
+    "theme": "default",
+    "themeMode": "auto"
+  },
+  "property_types": [
+    {
+      "name": "author",
+      "type": "multitext",
+      "defaultValue": ""
+    },
+    {
+      "name": "created",
+      "type": "date",
+      "defaultValue": ""
+    },
+    {
+      "name": "date",
+      "type": "date",
+      "defaultValue": ""
+    },
+    {
+      "name": "description",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
+      "name": "site",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
+      "name": "source",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
+      "name": "source_type",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
+      "name": "tags",
+      "type": "multitext",
+      "defaultValue": ""
+    },
+    {
+      "name": "title",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
+      "name": "type",
+      "type": "text",
+      "defaultValue": ""
+    }
+  ],
+  "stats": {
+    "addToObsidian": 0,
+    "copyToClipboard": 0,
+    "saveFile": 0,
+    "share": 0
+  },
+  "migrationVersion": 1,
+  "template_sblvarsayilan": {
+    "schemaVersion": "0.1.0",
+    "name": "Varsayılan",
+    "behavior": "create",
+    "path": "00 Inbox",
+    "context": "",
+    "triggers": [],
+    "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- Klip -- {{title|safe_name:linux|slice:0,60}}",
+    "noteContentFormat": "{{highlights|map: item => item.content|join:\"\\n\\n\"|markdown|callout:(\"quote\", \"Vurgular\")}}\n\n{{content}}\n\n---\n\n## Notlar\n\n",
+    "properties": [
+      {
+        "name": "type",
+        "value": "referans",
+        "type": "text",
+        "id": "sblvarsayilanp0"
+      },
+      {
+        "name": "date",
+        "value": "{{date|date:\"YYYY-MM-DD\"}}",
+        "type": "date",
+        "id": "sblvarsayilanp1"
+      },
+      {
+        "name": "created",
+        "value": "{{date|date:\"YYYY-MM-DD\"}}",
+        "type": "date",
+        "id": "sblvarsayilanp2"
+      },
+      {
+        "name": "tags",
+        "value": "kaynak",
+        "type": "multitext",
+        "id": "sblvarsayilanp3"
+      },
+      {
+        "name": "source",
+        "value": "{{url}}",
+        "type": "text",
+        "id": "sblvarsayilanp4"
+      },
+      {
+        "name": "source_type",
+        "value": "klip",
+        "type": "text",
+        "id": "sblvarsayilanp5"
+      },
+      {
+        "name": "title",
+        "value": "{{title}}",
+        "type": "text",
+        "id": "sblvarsayilanp6"
+      },
+      {
+        "name": "author",
+        "value": "{{author}}",
+        "type": "multitext",
+        "id": "sblvarsayilanp7"
+      },
+      {
+        "name": "site",
+        "value": "{{site}}",
+        "type": "text",
+        "id": "sblvarsayilanp8"
+      },
+      {
+        "name": "description",
+        "value": "{{description|slice:0,300}}",
+        "type": "text",
+        "id": "sblvarsayilanp9"
+      }
+    ],
+    "id": "sblvarsayilan"
+  }
+}
