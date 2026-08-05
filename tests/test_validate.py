@@ -78,6 +78,11 @@ class ValidateTemplateTest(unittest.TestCase):
         t["noteNameFormat"] = '{{date|date:"YYYY-MM-DD"}} -- Deneme -- {{title|safe_name}}'
         self.assertIn("safe_name", " ".join(validate_template(t)))
 
+    def test_yanlis_platform_safe_name_yakalanir(self):
+        t = gecerli_sablon()
+        t["noteNameFormat"] = '{{date|date:"YYYY-MM-DD"}} -- Deneme -- {{title|safe_name:windows}}'
+        self.assertIn("safe_name", " ".join(validate_template(t)))
+
     def test_notlar_bolumu_yoksa_yakalanir(self):
         t = gecerli_sablon()
         t["noteContentFormat"] = "{{content}}"

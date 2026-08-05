@@ -57,7 +57,7 @@ def validate_template(tmpl):
     ad_bicimi = tmpl.get("noteNameFormat", "")
     if ad_bicimi.count(AYIRICI) < 2:
         hatalar.append(f"{ad}: dosya adında ' -- ' ayırıcı deseni eksik")
-    if "safe_name" in ad_bicimi and "safe_name:" not in ad_bicimi:
+    if re.search(r"safe_name(?!:linux)", ad_bicimi):
         hatalar.append(f"{ad}: safe_name platform belirtmeli (safe_name:linux)")
 
     # meta: sözdizimi — {{meta:property:og:x}} veya {{meta:name:x}} olmalı
