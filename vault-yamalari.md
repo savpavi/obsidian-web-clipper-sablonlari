@@ -43,19 +43,29 @@ eklenmeli" kuralı), ve yeni dosya adı Tip değerleri
 ```markdown
 **Web Clipper Tip degerleri (2026-08-05):**
 `YouTube`, `GitHub`, `X`, `Reddit`, `Instagram`, `LinkedIn`, `Urun`,
-`Makale`, `Eksi Entry`, `Klip`
+`Makale`, `Eksi Entry`, `Eksi Klip`, `Klip`
 
 Ornek: `2026-08-05 -- YouTube -- Fedora Kurulum Rehberi.md`
 
 `Klip`, hicbir sablonun tetikleyicisi eslesmediginde devreye giren
-Varsayilan sablonun Tip degeridir.
+Varsayilan sablonun Tip degeridir. `Eksi Entry` tek bir entry
+permalink'ini, `Eksi Klip` ise acik baslik sayfasindaki entry'leri
+yakalar; ikisi de `eksi_export.py` scriptinin urettigi tam baslik
+arsivlerinden (`type: eksi-baslik`) ayridir.
 ```
 
 ---
 
 ## Durum
 
-- [ ] Yama 1 `Meta/tag-taxonomy.md`'ye işlendi
-- [ ] Yama 2 `Meta/naming-conventions.md`'ye işlendi
+- [x] Yama 1 `Meta/tag-taxonomy.md`'ye işlendi — 5 Ağustos 2026
+- [x] Yama 2 `Meta/naming-conventions.md`'ye işlendi — 5 Ağustos 2026
 
-Her iki kutu da işaretlenene kadar bu yamalar **uygulanmamış** kabul edilir.
+Her iki yama da kullanıcı onayıyla uygulandı. Uygulama saf ekleme oldu;
+mevcut hiçbir satır değişmedi veya silinmedi (`tag-taxonomy.md` 120→130,
+`naming-conventions.md` 47→59 satır). `tag-taxonomy.md`'nin frontmatter'ındaki
+`last-updated` alanı da `2026-08-05` yapıldı.
+
+Bu dosya artık geçmiş kaydı — yamaların ne olduğunu ve neden gerektiğini
+belgeliyor. Tekrar uygulanmasına gerek yok; uygulama betiği zaten
+"zaten var, atlandi" diyerek çıkar.
