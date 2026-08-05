@@ -6,17 +6,57 @@
   "context": "",
   "triggers": [],
   "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- Klip -- {{title|safe_name:linux|slice:0,60}}",
-  "noteContentFormat": "{{highlights|map: item => item.content|blockquote}}\n\n{{content}}\n\n---\n\n## Notlar\n\n",
+  "noteContentFormat": "{{content}}\n\n---\n\n## Notlar\n\n",
   "properties": [
-    {"name": "type", "value": "referans", "type": "text"},
-    {"name": "date", "value": "{{date|date:\"YYYY-MM-DD\"}}", "type": "date"},
-    {"name": "created", "value": "{{date|date:\"YYYY-MM-DD\"}}", "type": "date"},
-    {"name": "tags", "value": "kaynak", "type": "multitext"},
-    {"name": "source", "value": "{{url}}", "type": "text"},
-    {"name": "source_type", "value": "klip", "type": "text"},
-    {"name": "title", "value": "{{title}}", "type": "text"},
-    {"name": "author", "value": "{{author}}", "type": "multitext"},
-    {"name": "site", "value": "{{site}}", "type": "text"},
-    {"name": "description", "value": "{{description|slice:0,300}}", "type": "text"}
+    {
+      "name": "type",
+      "value": "referans",
+      "type": "text"
+    },
+    {
+      "name": "date",
+      "value": "{{date|date:\"YYYY-MM-DD\"}}",
+      "type": "date"
+    },
+    {
+      "name": "created",
+      "value": "{{date|date:\"YYYY-MM-DD\"}}",
+      "type": "date"
+    },
+    {
+      "name": "tags",
+      "value": "kaynak",
+      "type": "multitext"
+    },
+    {
+      "name": "source",
+      "value": "{{url}}",
+      "type": "text"
+    },
+    {
+      "name": "source_type",
+      "value": "klip",
+      "type": "text"
+    },
+    {
+      "name": "title",
+      "value": "{{title}}",
+      "type": "text"
+    },
+    {
+      "name": "author",
+      "value": "{{author}}",
+      "type": "multitext"
+    },
+    {
+      "name": "site",
+      "value": "{{site}}",
+      "type": "text"
+    },
+    {
+      "name": "description",
+      "value": "{{description|slice:0,300}}",
+      "type": "text"
+    }
   ]
 }

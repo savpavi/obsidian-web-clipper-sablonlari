@@ -90,35 +90,38 @@ sayfa Varsayılan'a değil de örneğin Ekşi Entry'ye düşmesin diye.
 
 ## `{{highlights}}` ve `{{content}}` üzerine notlar
 
-Makale ve Varsayılan şablonları gövdenin başına kullanıcının klip sırasında
-işaretlediği vurguları koyuyor:
+**Şablonlarda ayrı bir vurgu bölümü yok — bilerek.** Vurgular zaten
+`{{content}}` içinde geliyor.
+
+Tasarımda "üstte vurgular, altta tam metin" düzeni planlanmıştı ve Makale ile
+Varsayılan şablonlarına şöyle bir blok konmuştu:
 
 ```
 {{highlights|map: item => item.content|blockquote}}
 ```
 
-`{{highlights}}` bir dizi döndürür ve her elemanın metni **`text` değil
-`content` anahtarında**, **HTML** biçiminde durur — bu yüzden `item.content`
-okunuyor.
+Canlı testte (5 Ağustos 2026) bunun iki sorunu çıktı:
 
-**Zincirin bu kısa hali bilinçli.** İlk sürüm `|join|markdown|callout` ile
-"Vurgular" başlıklı bir kutu üretiyordu, ama hiçbir şey işaretlemeden
-klipslediğinde notun başında boş bir kutu kalıyordu — 5 Ağustos 2026 canlı
-testinde doğrulandı. Sebep: `map` bir **JSON dizisi** döndürüyor
-(`src/utils/filters/map.ts` → `JSON.stringify`), `blockquote` bunu ayrıştırıp
-boş dizide **hiçbir şey** basıyor, ama araya giren `join` diziyi düz metne
-çeviriyor ve `callout` boş metinde bile kutu çatısını yazıyor. Diziyi
-`blockquote`'a kadar bozmadan taşıyınca sorun kayboluyor.
+1. **Vurgusuz her klipte tek başına bir `> ` satırı kalıyordu.** Sebep
+   yapısal: `map` filtresi JSON olarak ayrıştıramadığı girdiyi `[""]` diye
+   tek elemanlı bir diziye sarıyor (`src/utils/filters/map.ts`, catch
+   bloğu), `blockquote` da o boş elemanı `> ` olarak basıyor. Filtre
+   zinciriyle kaçınmanın yolu yok.
+2. **Blok zaten gereksizdi.** Highlighter bu sette `highlight-inline`
+   modunda (bkz. `obsidian-web-clipper-settings.json` →
+   `highlighter_settings`), ve vurgular `{{content}}` içine Obsidian'ın
+   kendi `==vurgu==` sözdizimiyle gömülü halde geliyor. Bu, vurgu bloğu
+   **bulunmayan** bir LinkedIn klibinde işaretlenen metnin `==` ile sarılmış
+   çıkmasıyla doğrulandı.
 
-Bedeli: vurgu metni HTML sarmalıyla (`<div>…</div>`) kalıyor. Obsidian satır
-içi HTML'i sorunsuz render ediyor, sadece kaynak görünümde biraz gürültülü.
+Yani blok, aynı metni ikinci kez yazıp karşılığında her nota bir artık satır
+bırakıyordu. Kaldırıldı. Vurguların kendisi kaybolmadı — gövdede `==` ile
+işaretli duruyor, Obsidian sarı zeminle render ediyor ve arama/Dataview
+görüyor.
 
-`{{content}}` bu vurgulardan bağımsız olarak sayfanın **tam metnini**
-döndürmeye devam ediyor. Highlighter ayarı bu sette `highlight-inline`
-olduğu için (bkz. `obsidian-web-clipper-settings.json` →
-`highlighter_settings`), vurgular `{{content}}` içine `<mark>` olarak
-gömülüyor, onun **yerine geçmiyor**. Yani "üstte vurgular, altta tam metin"
-düzeninde bir miktar tekrar olması beklenen davranış, hata değil.
+Değişkenin yapısı hakkında, ileride gerekirse: `{{highlights}}` bir dizi
+döndürür ve her elemanın metni **`text` değil `content` anahtarında**, HTML
+biçiminde durur.
 
 ## Kırılganlık haritası
 
@@ -128,9 +131,9 @@ dosyalardan çıkarıldı.
 
 | Şablon | Bağımlılık | Bozulursa |
 |---|---|---|
-| Varsayılan | Genel sayfa çıkarımı: `{{title}}`, `{{author}}`, `{{site}}`, `{{description}}`, `{{content}}`, `{{highlights}}` | En dayanıklı şablon; sayfa çok atipikse tek tek alanlar boş gelebilir, tamamen boşalmaz |
+| Varsayılan | Genel sayfa çıkarımı: `{{title}}`, `{{author}}`, `{{site}}`, `{{description}}`, `{{content}}` | En dayanıklı şablon; sayfa çok atipikse tek tek alanlar boş gelebilir, tamamen boşalmaz |
 | Ekşi Entry | DOM seçicileri: `a.entry-author`, `#entry-item-list li div.content` | Ekşi Sözlük arayüzü class/id değiştirirse yazar ve entry metni boş kalır |
-| Ekşi Klip | DOM seçicisi: `#entry-item-list` (sayfadaki entry listesinin tamamı) | Aynı risk; ayrıca yalnızca **açık sayfadaki** entry'leri yakalar — başlığın tamamı için `eksi_export.py` script'i kullanılmalı |
+| Ekşi Klip | DOM seçicileri: `#entry-item-list li div.content` (entry metinleri), `#entry-item-list li a.entry-author` (yazarlar) | Aynı risk; ayrıca yalnızca **açık sayfadaki** entry'leri yakalar — başlığın tamamı için `eksi_export.py` script'i kullanılmalı |
 | YouTube Video | schema.org `@VideoObject` (`name`, `uploadDate`, `description`, `author`, `duration`) | YouTube şemayı kaldırır/değiştirirse tüm alanlar birden boş kalır |
 | GitHub Repo | `og:description` meta + DOM seçici `#repo-stars-counter-star`; gövde `{{content}}` üzerinden README'nin tamamı | Yıldız sayacının id'si değişirse yalnızca `stars` boş kalır, gerisi çalışmaya devam eder |
 | X (Twitter) Post | DOM seçicisi `div[data-testid="tweetText"]` (gövde ve `title`) + URL'den handle çıkarma | X bu testid'yi değiştirirse tweet metni boş kalır; handle URL'den geldiği için her hâlükârda durur. **Not:** ilk sürüm metni sayfa başlığından ayrıştırıyordu, X başlık biçimini değiştirdiği için 5 Ağustos 2026'da DOM'a taşındı |
@@ -205,14 +208,17 @@ Sonuçlar üretilen notlar okunarak çıkarıldı, beyana dayanmıyor.
 | YouTube Video | ✅ | `title`, `channel`, `duration: 00:27:34` (`\|duration` filtresi çalışıyor), yayın tarihi dosya adında doğru, açıklama tam. |
 | Ekşi Klip | 🔧 düzeltildi | Tetikleyici ve frontmatter doğru, ama `#entry-item-list` her entry'nin paylaş/şikayet/modlog menüsünü de çekiyordu. Seçici `#entry-item-list li div.content` olarak daraltıldı, yazarlar ayrı alana alındı. |
 | LinkedIn Gönderi | ❌ | Instagram'la aynı: `title`, `author`, `description` boş, gövde ham feed iskeleti ve reklam takip URL'leri. `og:` etiketleri login duvarı arkasında veri taşımıyor. |
-| Boş vurgu | ⚠️ açık | Hâlâ tek bir `> ` satırı bırakıyor. Sebep yapısal: `map` JSON ayrıştıramadığı girdiyi `[""]` tek elemanlı diziye sarıyor (`src/utils/filters/map.ts` catch bloğu), `blockquote` da onu `> ` olarak basıyor. Vurgusuz her klipte bir satır. |
+| Boş vurgu | 🔧 çözüldü | Vurgu bloğu Makale ve Varsayılan'dan kaldırıldı. Üçüncü tur doğrulaması: vurgu bloğu **bulunmayan** bir LinkedIn klibinde işaretlenen metin `==` ile sarılmış geldi, yani vurgular zaten `{{content}}` içinde taşınıyor ve ayrı blok sadece tekrar + artık satır üretiyormuş. |
 
-**Boş vurgu satırı için karar bekliyor:** blok tamamen kaldırılabilir, çünkü
-highlighter `highlight-inline` modunda ve vurgular teorik olarak zaten
-`{{content}}` içine gömülü geliyor. Ama bu henüz **doğrulanmadı** — test
-turlarında hiç vurgu yapılmadığı için notlarda ne `==` ne `<mark>` var. Bir
-kez vurgu yapıp klipslemek sorunu kesin çözer: vurgular gövdede de
-görünüyorsa üstteki blok silinir ve `> ` satırı kendiliğinden gider.
+### Üçüncü tur (vurgu doğrulaması)
+
+Bir sayfada metin işaretlenip klipslendi. Sonuç: vurgu `{{content}}` içinde
+Obsidian'ın `==vurgu==` sözdizimiyle geldi. Bu, "üstte vurgular, altta tam
+metin" tasarım kararını geçersiz kıldı — bilgi zaten gövdede olduğu için üstteki
+blok kaldırıldı, `> ` artığı da onunla birlikte gitti.
+
+Hâlâ denenmemiş: Ekşi entry permalink'i, Ekşi Klip'in daraltılmış seçicisi
+(düzeltmeden sonra), Reddit'in yorum bölümü.
 
 Test kriteri (bkz. tasarım dokümanı, "Test kriteri" bölümü): dosya adı
 `YYYY-MM-DD -- {{Kaynak}} -- {{Başlık}}` desenine uyuyor mu, frontmatter

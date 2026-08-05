@@ -344,10 +344,22 @@ açık sorunun dördü de cevaplandı:
    JSON-LD'si doğrudan incelenerek doğrulandı: `offers`, `brand`,
    `aggregateRating` tekil obje, `image.contentUrl` ise dizi. Ürün
    şablonunun altı alanı buna göre düzeltildi.
-4. **Boş vurgu davranışı — artık bırakıyordu, düzeltildi.** `map` bir JSON
-   dizisi döndürüyor ve `blockquote` boş dizide hiçbir şey basıyor; ama
-   araya giren `join` diziyi düz metne çeviriyor, `callout` da boş metinde
-   kutu çatısını yazıyordu. Zincir `map → blockquote`'a indirildi.
+4. **Boş vurgu davranışı — blok tamamen kaldırıldı.** Önce zincir
+   `map → blockquote`'a indirildi, ama artık satır sürdü: `map` JSON olarak
+   ayrıştıramadığı girdiyi `[""]` diye tek elemanlı diziye sarıyor
+   (`src/utils/filters/map.ts` catch bloğu), `blockquote` da o boş elemanı
+   `> ` basıyor. Filtre zinciriyle kaçınılamıyor.
+
+   Asıl bulgu bunun ardından geldi: **blok zaten gereksizmiş.** Vurgu bloğu
+   *bulunmayan* bir LinkedIn şablonuyla klipslenen sayfada, işaretlenen metin
+   `==vurgu==` olarak gövdede çıktı. Yani `highlight-inline` modunda vurgular
+   `{{content}}` içine Obsidian'ın kendi sözdizimiyle gömülüyor.
+
+   **Karar 5 geçersiz.** "Makale gövdesi: vurgular üstte, tam metin altta"
+   kararı, `{{content}}`'in vurguları zaten taşıdığı bilinmeden alınmıştı.
+   Blok aynı metni ikinci kez yazıp her nota bir artık satır bırakıyordu;
+   Makale ve Varsayılan'dan kaldırıldı. Vurgular kaybolmadı — gövdede `==`
+   ile işaretli, arama ve Dataview görüyor.
 
 Turda çıkan iki ek bulgu:
 
