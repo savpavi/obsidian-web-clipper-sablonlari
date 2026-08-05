@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "0.1.0",
+  "name": "YouTube Video",
+  "behavior": "create",
+  "path": "00 Inbox",
+  "context": "",
+  "triggers": [
+    "https://www.youtube.com/watch",
+    "https://m.youtube.com/watch",
+    "https://youtu.be/"
+  ],
+  "noteNameFormat": "{{schema:@VideoObject:uploadDate|date:\"YYYY-MM-DD\"}} -- YouTube -- {{schema:@VideoObject:name|safe_name:linux|slice:0,60}}",
+  "noteContentFormat": "![video]({{url}})\n\n---\n\n## Açıklama\n\n{{schema:@VideoObject:description|slice:0,2000|trim}}\n\n---\n\n## Notlar\n\n",
+  "properties": [
+    {"name": "type", "value": "referans", "type": "text"},
+    {"name": "date", "value": "{{schema:@VideoObject:uploadDate|date:\"YYYY-MM-DD\"}}", "type": "date"},
+    {"name": "created", "value": "{{date|date:\"YYYY-MM-DD\"}}", "type": "date"},
+    {"name": "tags", "value": "kaynak, kaynak/youtube", "type": "multitext"},
+    {"name": "source", "value": "{{url}}", "type": "text"},
+    {"name": "source_type", "value": "youtube", "type": "text"},
+    {"name": "title", "value": "{{schema:@VideoObject:name}}", "type": "text"},
+    {"name": "channel", "value": "{{schema:@VideoObject:author}}", "type": "text"},
+    {"name": "duration", "value": "{{schema:@VideoObject:duration|duration:\"HH:mm:ss\"}}", "type": "text"},
+    {"name": "author", "value": "{{schema:@VideoObject:author}}", "type": "multitext"}
+  ]
+}

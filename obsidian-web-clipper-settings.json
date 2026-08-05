@@ -2,6 +2,8 @@
   "template_list": [
     "sblvarsayilan",
     "sbleksientry",
+    "sblyoutube",
+    "sblgithub",
     "sblmakale"
   ],
   "vaults": [
@@ -47,6 +49,11 @@
       "defaultValue": ""
     },
     {
+      "name": "channel",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
       "name": "created",
       "type": "date",
       "defaultValue": ""
@@ -62,12 +69,22 @@
       "defaultValue": ""
     },
     {
+      "name": "duration",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
       "name": "entry_id",
       "type": "text",
       "defaultValue": ""
     },
     {
       "name": "moc",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
+      "name": "repo",
       "type": "text",
       "defaultValue": ""
     },
@@ -83,6 +100,11 @@
     },
     {
       "name": "source_type",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
+      "name": "stars",
       "type": "text",
       "defaultValue": ""
     },
@@ -272,6 +294,158 @@
       }
     ],
     "id": "sbleksientry"
+  },
+  "template_sblyoutube": {
+    "schemaVersion": "0.1.0",
+    "name": "YouTube Video",
+    "behavior": "create",
+    "path": "00 Inbox",
+    "context": "",
+    "triggers": [
+      "https://www.youtube.com/watch",
+      "https://m.youtube.com/watch",
+      "https://youtu.be/"
+    ],
+    "noteNameFormat": "{{schema:@VideoObject:uploadDate|date:\"YYYY-MM-DD\"}} -- YouTube -- {{schema:@VideoObject:name|safe_name:linux|slice:0,60}}",
+    "noteContentFormat": "![video]({{url}})\n\n---\n\n## Açıklama\n\n{{schema:@VideoObject:description|slice:0,2000|trim}}\n\n---\n\n## Notlar\n\n",
+    "properties": [
+      {
+        "name": "type",
+        "value": "referans",
+        "type": "text",
+        "id": "sblyoutubep0"
+      },
+      {
+        "name": "date",
+        "value": "{{schema:@VideoObject:uploadDate|date:\"YYYY-MM-DD\"}}",
+        "type": "date",
+        "id": "sblyoutubep1"
+      },
+      {
+        "name": "created",
+        "value": "{{date|date:\"YYYY-MM-DD\"}}",
+        "type": "date",
+        "id": "sblyoutubep2"
+      },
+      {
+        "name": "tags",
+        "value": "kaynak, kaynak/youtube",
+        "type": "multitext",
+        "id": "sblyoutubep3"
+      },
+      {
+        "name": "source",
+        "value": "{{url}}",
+        "type": "text",
+        "id": "sblyoutubep4"
+      },
+      {
+        "name": "source_type",
+        "value": "youtube",
+        "type": "text",
+        "id": "sblyoutubep5"
+      },
+      {
+        "name": "title",
+        "value": "{{schema:@VideoObject:name}}",
+        "type": "text",
+        "id": "sblyoutubep6"
+      },
+      {
+        "name": "channel",
+        "value": "{{schema:@VideoObject:author}}",
+        "type": "text",
+        "id": "sblyoutubep7"
+      },
+      {
+        "name": "duration",
+        "value": "{{schema:@VideoObject:duration|duration:\"HH:mm:ss\"}}",
+        "type": "text",
+        "id": "sblyoutubep8"
+      },
+      {
+        "name": "author",
+        "value": "{{schema:@VideoObject:author}}",
+        "type": "multitext",
+        "id": "sblyoutubep9"
+      }
+    ],
+    "id": "sblyoutube"
+  },
+  "template_sblgithub": {
+    "schemaVersion": "0.1.0",
+    "name": "GitHub Repo",
+    "behavior": "create",
+    "path": "00 Inbox",
+    "context": "",
+    "triggers": [
+      "/^https:\\/\\/github\\.com\\/[\\w.-]+\\/[\\w.-]+\\/?$/"
+    ],
+    "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- GitHub -- {{url|split:\"github.com/\"|last|replace:\"/\":\"-\"|safe_name:linux|slice:0,60}}",
+    "noteContentFormat": "> {{meta:property:og:description|slice:0,300}}\n\n---\n\n{{content}}\n\n---\n\n## Notlar\n\n",
+    "properties": [
+      {
+        "name": "type",
+        "value": "referans",
+        "type": "text",
+        "id": "sblgithubp0"
+      },
+      {
+        "name": "date",
+        "value": "{{date|date:\"YYYY-MM-DD\"}}",
+        "type": "date",
+        "id": "sblgithubp1"
+      },
+      {
+        "name": "created",
+        "value": "{{date|date:\"YYYY-MM-DD\"}}",
+        "type": "date",
+        "id": "sblgithubp2"
+      },
+      {
+        "name": "tags",
+        "value": "kaynak, kaynak/github, alan/teknik",
+        "type": "multitext",
+        "id": "sblgithubp3"
+      },
+      {
+        "name": "source",
+        "value": "{{url}}",
+        "type": "text",
+        "id": "sblgithubp4"
+      },
+      {
+        "name": "source_type",
+        "value": "github",
+        "type": "text",
+        "id": "sblgithubp5"
+      },
+      {
+        "name": "title",
+        "value": "{{title|split:\" · GitHub\"|first}}",
+        "type": "text",
+        "id": "sblgithubp6"
+      },
+      {
+        "name": "repo",
+        "value": "{{url|split:\"github.com/\"|last}}",
+        "type": "text",
+        "id": "sblgithubp7"
+      },
+      {
+        "name": "stars",
+        "value": "{{selector:#repo-stars-counter-star}}",
+        "type": "text",
+        "id": "sblgithubp8"
+      },
+      {
+        "name": "description",
+        "value": "{{meta:property:og:description|slice:0,300}}",
+        "type": "text",
+        "id": "sblgithubp9"
+      }
+    ],
+    "id": "sblgithub"
   },
   "template_sblmakale": {
     "schemaVersion": "0.1.0",
