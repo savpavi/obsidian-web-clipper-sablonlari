@@ -22,7 +22,11 @@ class BuildTest(unittest.TestCase):
         self.assertEqual(len(idler), len(set(idler)))
 
     def test_template_list_ile_anahtarlar_ortusuyor(self):
-        anahtar_idler = {k[len("template_"):] for k in self.ayarlar if k.startswith("template_")}
+        anahtar_idler = {
+            k[len("template_"):]
+            for k in self.ayarlar
+            if k.startswith("template_") and k != "template_list"
+        }
         self.assertEqual(anahtar_idler, set(self.ayarlar["template_list"]))
 
     def test_olu_sayisal_anahtarlar_yok(self):
