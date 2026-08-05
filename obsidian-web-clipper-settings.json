@@ -4,6 +4,8 @@
     "sbleksientry",
     "sblyoutube",
     "sblgithub",
+    "sblx",
+    "sblreddit",
     "sblmakale"
   ],
   "vaults": [
@@ -79,6 +81,11 @@
       "defaultValue": ""
     },
     {
+      "name": "handle",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
       "name": "moc",
       "type": "text",
       "defaultValue": ""
@@ -86,6 +93,11 @@
     {
       "name": "repo",
       "type": "text",
+      "defaultValue": ""
+    },
+    {
+      "name": "score",
+      "type": "number",
       "defaultValue": ""
     },
     {
@@ -105,6 +117,11 @@
     },
     {
       "name": "stars",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
+      "name": "subreddit",
       "type": "text",
       "defaultValue": ""
     },
@@ -446,6 +463,151 @@
       }
     ],
     "id": "sblgithub"
+  },
+  "template_sblx": {
+    "schemaVersion": "0.1.0",
+    "name": "X (Twitter) Post",
+    "behavior": "create",
+    "path": "00 Inbox",
+    "context": "",
+    "triggers": [
+      "/^https:\\/\\/x\\.com\\/[A-Za-z0-9_]+\\/status\\/\\d+/",
+      "/^https:\\/\\/twitter\\.com\\/[A-Za-z0-9_]+\\/status\\/\\d+/"
+    ],
+    "noteNameFormat": "{{published|date:\"YYYY-MM-DD\"}} -- X -- {{url|split:\"/\"|slice:3,-2|first|safe_name:linux}}",
+    "noteContentFormat": "![tweet]({{url}})\n\n---\n\n{{title|split:\" on X: \"|last|slice:1,-5|remove_html|trim}}\n\n---\n\n## Notlar\n\n",
+    "properties": [
+      {
+        "name": "type",
+        "value": "referans",
+        "type": "text",
+        "id": "sblxp0"
+      },
+      {
+        "name": "date",
+        "value": "{{published|date:\"YYYY-MM-DD\"}}",
+        "type": "date",
+        "id": "sblxp1"
+      },
+      {
+        "name": "created",
+        "value": "{{date|date:\"YYYY-MM-DD\"}}",
+        "type": "date",
+        "id": "sblxp2"
+      },
+      {
+        "name": "tags",
+        "value": "kaynak, kaynak/x",
+        "type": "multitext",
+        "id": "sblxp3"
+      },
+      {
+        "name": "source",
+        "value": "{{url}}",
+        "type": "text",
+        "id": "sblxp4"
+      },
+      {
+        "name": "source_type",
+        "value": "x",
+        "type": "text",
+        "id": "sblxp5"
+      },
+      {
+        "name": "title",
+        "value": "{{title|split:\" on X: \"|first}}",
+        "type": "text",
+        "id": "sblxp6"
+      },
+      {
+        "name": "author",
+        "value": "{{title|split:\" on X: \"|first}}",
+        "type": "multitext",
+        "id": "sblxp7"
+      },
+      {
+        "name": "handle",
+        "value": "@{{url|split:\"/\"|slice:3,-2|first}}",
+        "type": "text",
+        "id": "sblxp8"
+      }
+    ],
+    "id": "sblx"
+  },
+  "template_sblreddit": {
+    "schemaVersion": "0.1.0",
+    "name": "Reddit Post",
+    "behavior": "create",
+    "path": "00 Inbox",
+    "context": "",
+    "triggers": [
+      "/^https:\\/\\/(www|old)\\.reddit\\.com\\/r\\/\\w+\\/comments\\//"
+    ],
+    "noteNameFormat": "{{selector:shreddit-post?created-timestamp|date:\"YYYY-MM-DD\"}} -- Reddit -- {{selector:shreddit-post?post-title|safe_name:linux|slice:0,60}}",
+    "noteContentFormat": "> **{{selector:shreddit-post?subreddit-prefixed-name}}** · u/{{selector:shreddit-post?author}} · ⬆️ {{selector:shreddit-post?score}}\n\n---\n\n{{selectorHtml:shreddit-post div[slot=\"text-body\"]|markdown|trim}}\n\n---\n\n### İlk Yorum\n\n**{{selector:shreddit-comment?author|first}}**\n\n{{selectorHtml:shreddit-comment div[slot=\"comment\"]|first|markdown|blockquote}}\n\n---\n\n## Notlar\n\n",
+    "properties": [
+      {
+        "name": "type",
+        "value": "referans",
+        "type": "text",
+        "id": "sblredditp0"
+      },
+      {
+        "name": "date",
+        "value": "{{selector:shreddit-post?created-timestamp|date:\"YYYY-MM-DD\"}}",
+        "type": "date",
+        "id": "sblredditp1"
+      },
+      {
+        "name": "created",
+        "value": "{{date|date:\"YYYY-MM-DD\"}}",
+        "type": "date",
+        "id": "sblredditp2"
+      },
+      {
+        "name": "tags",
+        "value": "kaynak, kaynak/reddit",
+        "type": "multitext",
+        "id": "sblredditp3"
+      },
+      {
+        "name": "source",
+        "value": "{{url}}",
+        "type": "text",
+        "id": "sblredditp4"
+      },
+      {
+        "name": "source_type",
+        "value": "reddit",
+        "type": "text",
+        "id": "sblredditp5"
+      },
+      {
+        "name": "title",
+        "value": "{{selector:shreddit-post?post-title|trim}}",
+        "type": "text",
+        "id": "sblredditp6"
+      },
+      {
+        "name": "subreddit",
+        "value": "{{selector:shreddit-post?subreddit-prefixed-name}}",
+        "type": "text",
+        "id": "sblredditp7"
+      },
+      {
+        "name": "author",
+        "value": "u/{{selector:shreddit-post?author}}",
+        "type": "multitext",
+        "id": "sblredditp8"
+      },
+      {
+        "name": "score",
+        "value": "{{selector:shreddit-post?score}}",
+        "type": "number",
+        "id": "sblredditp9"
+      }
+    ],
+    "id": "sblreddit"
   },
   "template_sblmakale": {
     "schemaVersion": "0.1.0",
