@@ -6,7 +6,7 @@
   "context": "",
   "triggers": [],
   "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- Klip -- {{title|safe_name:linux|slice:0,60}}",
-  "noteContentFormat": "{{highlights|map: item => item.content|join:\"\\n\\n\"|markdown|callout:(\"quote\", \"Vurgular\")}}\n\n{{content}}\n\n---\n\n## Notlar\n\n",
+  "noteContentFormat": "{{highlights|map: item => item.content|blockquote}}\n\n{{content}}\n\n---\n\n## Notlar\n\n",
   "properties": [
     {"name": "type", "value": "referans", "type": "text"},
     {"name": "date", "value": "{{date|date:\"YYYY-MM-DD\"}}", "type": "date"},

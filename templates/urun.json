@@ -6,7 +6,7 @@
   "context": "",
   "triggers": ["schema:@Product"],
   "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- Urun -- {{schema:@Product:name|safe_name:linux|slice:0,60}}",
-  "noteContentFormat": "{{schema:@Product:image|first|image:\"ürün\"}}\n\n---\n\n## Detaylar\n\n| | |\n|---|---|\n| **Fiyat** | {{schema:@Product:offers:price}} {{schema:@Product:offers:priceCurrency}} |\n| **Mağaza** | {{site}} |\n| **Marka** | {{schema:@Product:brand:name}} |\n| **Durum** | {{schema:@Product:offers:availability|replace:\"https://schema.org/\":\"\"}} |\n| **Puan** | {{schema:@Product:aggregateRating:ratingValue}}/5 ({{schema:@Product:aggregateRating:reviewCount}} değerlendirme) |\n\n## Açıklama\n\n{{schema:@Product:description|slice:0,1000|trim}}\n\n---\n\n## Notlar\n\n",
+  "noteContentFormat": "{{schema:@Product:image.contentUrl|first|image:\"ürün\"}}\n\n---\n\n## Detaylar\n\n| | |\n|---|---|\n| **Fiyat** | {{schema:@Product:offers.price}} {{schema:@Product:offers.priceCurrency}} |\n| **Mağaza** | {{site}} |\n| **Marka** | {{schema:@Product:brand.name}} |\n| **Durum** | {{schema:@Product:offers.availability|replace:\"https://schema.org/\":\"\"}} |\n| **Puan** | {{schema:@Product:aggregateRating.ratingValue}}/5 ({{schema:@Product:aggregateRating.reviewCount}} değerlendirme) |\n\n## Açıklama\n\n{{schema:@Product:description|slice:0,1000|trim}}\n\n---\n\n## Notlar\n\n",
   "properties": [
     {"name": "type", "value": "referans", "type": "text"},
     {"name": "date", "value": "{{date|date:\"YYYY-MM-DD\"}}", "type": "date"},
@@ -15,12 +15,12 @@
     {"name": "source", "value": "{{url}}", "type": "text"},
     {"name": "source_type", "value": "urun", "type": "text"},
     {"name": "title", "value": "{{schema:@Product:name}}", "type": "text"},
-    {"name": "price", "value": "{{schema:@Product:offers:price}}", "type": "text"},
-    {"name": "currency", "value": "{{schema:@Product:offers:priceCurrency}}", "type": "text"},
+    {"name": "price", "value": "{{schema:@Product:offers.price}}", "type": "text"},
+    {"name": "currency", "value": "{{schema:@Product:offers.priceCurrency}}", "type": "text"},
     {"name": "store", "value": "{{site}}", "type": "text"},
-    {"name": "brand", "value": "{{schema:@Product:brand:name}}", "type": "text"},
-    {"name": "rating", "value": "{{schema:@Product:aggregateRating:ratingValue}}", "type": "text"},
-    {"name": "availability", "value": "{{schema:@Product:offers:availability|replace:\"https://schema.org/\":\"\"}}", "type": "text"},
-    {"name": "image", "value": "{{schema:@Product:image|first}}", "type": "text"}
+    {"name": "brand", "value": "{{schema:@Product:brand.name}}", "type": "text"},
+    {"name": "rating", "value": "{{schema:@Product:aggregateRating.ratingValue}}", "type": "text"},
+    {"name": "availability", "value": "{{schema:@Product:offers.availability|replace:\"https://schema.org/\":\"\"}}", "type": "text"},
+    {"name": "image", "value": "{{schema:@Product:image.contentUrl|first}}", "type": "text"}
   ]
 }

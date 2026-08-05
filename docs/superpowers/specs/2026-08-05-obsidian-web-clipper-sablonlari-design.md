@@ -326,18 +326,61 @@ kaydı — bir sonraki okuyucu bunları "unutulmuş" sanıp yeniden açmasın di
   daha geniş: kullanıcı adı segmentinde nokta'ya izin veriyor (`[\w.-]+`) ve
   sondaki `/`'i tolere ediyor (`\/?$`). Burada da geçerli olan uygulama.
 
-## Canlı klip testiyle doğrulanacaklar
+## Canlı klip testi sonuçları (5 Ağustos 2026)
 
-Statik olarak doğrulanamayan, gerçek sayfa klipslenerek sınanacak noktalar:
+İlk canlı tur yapıldı; sonuçlar üretilen notlar okunarak çıkarıldı. Dört
+açık sorunun dördü de cevaplandı:
 
-1. **Reddit `shreddit-*` seçicileri** — `shreddit-post?post-title`,
-   `?subreddit-prefixed-name`, `?author`, `?score`, `?created-timestamp` ve
-   yorum ağacı seçicisi hâlâ geçerli mi
-2. **Instagram / LinkedIn `og:` alanları** — `og:title`'ın
-   `"Ad on Instagram: ..."` biçimini koruyup korumadığı
-3. **İç içe şema erişimi** — `{{schema:@Product:offers:price}}` (iki nokta) mı
-   yoksa `{{schema:@Product:offers.price}}` (nokta) mı çalışıyor
-4. **Boş vurgu davranışı** — yukarıda açıklandı
+1. **Reddit `shreddit-*` seçicileri — geçerli.** `post-title`,
+   `subreddit-prefixed-name`, `author`, `score` ve gövde hepsi doldu.
+   Şablon olduğu gibi çalışıyor.
+2. **Instagram `og:` alanları — çalışmıyor.** `title`, `author`, `image`
+   hepsi boş döndü. Login duvarı arkasında `og:` etiketleri veri
+   taşımıyor. DOM'a inmeden çözümü yok; kullanıcı kararıyla bu haliyle
+   bırakıldı. LinkedIn gönderi permalink'i bu turda denenmedi.
+3. **İç içe şema erişimi — nokta.** `offers:price` (iki nokta) boş dönüyor,
+   doğrusu `offers.price`. `src/utils/variables/schema.ts` içindeki
+   `getNestedProperty` zaten `path.split('.')` yapıyor. Trendyol'un
+   JSON-LD'si doğrudan incelenerek doğrulandı: `offers`, `brand`,
+   `aggregateRating` tekil obje, `image.contentUrl` ise dizi. Ürün
+   şablonunun altı alanı buna göre düzeltildi.
+4. **Boş vurgu davranışı — artık bırakıyordu, düzeltildi.** `map` bir JSON
+   dizisi döndürüyor ve `blockquote` boş dizide hiçbir şey basıyor; ama
+   araya giren `join` diziyi düz metne çeviriyor, `callout` da boş metinde
+   kutu çatısını yazıyordu. Zincir `map → blockquote`'a indirildi.
+
+Turda çıkan iki ek bulgu:
+
+- **X sayfa başlığı biçimi değişmiş.** Artık `Post by @kullanici on X`
+  yazıyor, tweet metnini içermiyor. `" on X: "` ayrıştırması gövdeye
+  kırpılmış çöp bırakıyordu. Metin `div[data-testid="tweetText"]`
+  seçicisine taşındı.
+- **GitHub `stars` boş.** `#repo-stars-counter-star` istemci tarafında
+  render ediliyor. Diğer alanlar çalıştığı için alan boş bırakıldı.
+
+### 11. Ekşi Klip (tasarım sonrası eklendi)
+
+Tasarımda Ekşi için "tek entry mi, açık sayfa mı" sorusu sorulmuş ve tek
+entry seçilmişti. Canlı testte kullanıcının klipslediği URL bir **başlık
+sayfası** çıktı (`eksisozluk.com/metinlerarasilik--194803?day=...`), yani
+pratikte ihtiyaç ikisi birden. Tasarımda reddedilen seçenek ayrı bir
+şablon olarak eklendi:
+
+- **Tetikleyici:** regex `eksisozluk.com/<baslik>--<id>`
+- **Ad:** `2026-08-05 -- Eksi Klip -- baslik`
+- **Alanlar:** `type: referans`, `source_type: eksi-klip`, `baslik`,
+  `topic_id`, `moc`
+- **Gövde:** `#entry-item-list` üzerinden açık sayfadaki entry'ler
+
+Üç yönlü ayrım korunuyor: `eksi-baslik` (script'in tam arşivi),
+`eksi-entry` (tek permalink), `eksi-klip` (sayfadaki entry'ler). Entry
+permalink'lerinde `--` bulunmadığı için iki regex çakışmıyor; doğrulandı.
+
+## Hâlâ denenmemiş
+
+YouTube, LinkedIn gönderi permalink'i, Ekşi entry permalink'i ve Ekşi Klip.
+Ayrıca yukarıdaki düzeltmelerin (Ürün, X, boş vurgu) ikinci bir turla
+teyit edilmesi gerekiyor.
 
 ## Test kriteri
 

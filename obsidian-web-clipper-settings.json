@@ -2,6 +2,7 @@
   "template_list": [
     "sblvarsayilan",
     "sbleksientry",
+    "sbleksiklip",
     "sblyoutube",
     "sblgithub",
     "sblx",
@@ -174,6 +175,11 @@
       "defaultValue": ""
     },
     {
+      "name": "topic_id",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
       "name": "type",
       "type": "text",
       "defaultValue": ""
@@ -199,7 +205,7 @@
     "context": "",
     "triggers": [],
     "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- Klip -- {{title|safe_name:linux|slice:0,60}}",
-    "noteContentFormat": "{{highlights|map: item => item.content|join:\"\\n\\n\"|markdown|callout:(\"quote\", \"Vurgular\")}}\n\n{{content}}\n\n---\n\n## Notlar\n\n",
+    "noteContentFormat": "{{highlights|map: item => item.content|blockquote}}\n\n{{content}}\n\n---\n\n## Notlar\n\n",
     "properties": [
       {
         "name": "type",
@@ -344,6 +350,81 @@
       }
     ],
     "id": "sbleksientry"
+  },
+  "template_sbleksiklip": {
+    "schemaVersion": "0.1.0",
+    "name": "Ekşi Klip",
+    "behavior": "create",
+    "path": "00 Inbox",
+    "context": "",
+    "triggers": [
+      "/^https:\\/\\/(www\\.)?eksisozluk\\.com\\/[^\\/?]+--\\d+/"
+    ],
+    "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- Eksi Klip -- {{title|split:\" - ekşi sözlük\"|first|safe_name:linux|slice:0,60}}",
+    "noteContentFormat": "> **{{title|split:\" - ekşi sözlük\"|first}}** · sayfa klibi · {{date|date:\"YYYY-MM-DD\"}}\n\n{{highlights|map: item => item.content|blockquote}}\n\n---\n\n{{selectorHtml:#entry-item-list|markdown|trim}}\n\n---\n\n## Notlar\n\n",
+    "properties": [
+      {
+        "name": "type",
+        "value": "referans",
+        "type": "text",
+        "id": "sbleksiklipp0"
+      },
+      {
+        "name": "date",
+        "value": "{{date|date:\"YYYY-MM-DD\"}}",
+        "type": "date",
+        "id": "sbleksiklipp1"
+      },
+      {
+        "name": "created",
+        "value": "{{date|date:\"YYYY-MM-DD\"}}",
+        "type": "date",
+        "id": "sbleksiklipp2"
+      },
+      {
+        "name": "tags",
+        "value": "kaynak, kaynak/eksi, eksi",
+        "type": "multitext",
+        "id": "sbleksiklipp3"
+      },
+      {
+        "name": "source",
+        "value": "{{url}}",
+        "type": "text",
+        "id": "sbleksiklipp4"
+      },
+      {
+        "name": "source_type",
+        "value": "eksi-klip",
+        "type": "text",
+        "id": "sbleksiklipp5"
+      },
+      {
+        "name": "title",
+        "value": "{{title|split:\" - ekşi sözlük\"|first}}",
+        "type": "text",
+        "id": "sbleksiklipp6"
+      },
+      {
+        "name": "baslik",
+        "value": "{{title|split:\" - ekşi sözlük\"|first}}",
+        "type": "text",
+        "id": "sbleksiklipp7"
+      },
+      {
+        "name": "topic_id",
+        "value": "{{url|split:\"--\"|last|split:\"?\"|first}}",
+        "type": "text",
+        "id": "sbleksiklipp8"
+      },
+      {
+        "name": "moc",
+        "value": "[[Eksi Kaynaklari MOC]]",
+        "type": "text",
+        "id": "sbleksiklipp9"
+      }
+    ],
+    "id": "sbleksiklip"
   },
   "template_sblyoutube": {
     "schemaVersion": "0.1.0",
@@ -509,7 +590,7 @@
       "/^https:\\/\\/twitter\\.com\\/[A-Za-z0-9_]+\\/status\\/\\d+/"
     ],
     "noteNameFormat": "{{published|date:\"YYYY-MM-DD\"}} -- X -- {{url|split:\"/\"|slice:3,-2|first|safe_name:linux|slice:0,60}}",
-    "noteContentFormat": "![tweet]({{url}})\n\n---\n\n{{title|split:\" on X: \"|last|slice:1,-5|remove_html|trim}}\n\n---\n\n## Notlar\n\n",
+    "noteContentFormat": "![tweet]({{url}})\n\n---\n\n{{selectorHtml:div[data-testid=\"tweetText\"]|first|markdown|trim}}\n\n---\n\n## Notlar\n\n",
     "properties": [
       {
         "name": "type",
@@ -549,13 +630,13 @@
       },
       {
         "name": "title",
-        "value": "{{title|split:\" on X: \"|first}}",
+        "value": "{{selector:div[data-testid=\"tweetText\"]|first|remove_html|trim|slice:0,100}}",
         "type": "text",
         "id": "sblxp6"
       },
       {
         "name": "author",
-        "value": "{{title|split:\" on X: \"|first}}",
+        "value": "{{url|split:\"/\"|slice:3,-2|first}}",
         "type": "multitext",
         "id": "sblxp7"
       },
@@ -792,7 +873,7 @@
       "schema:@Product"
     ],
     "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- Urun -- {{schema:@Product:name|safe_name:linux|slice:0,60}}",
-    "noteContentFormat": "{{schema:@Product:image|first|image:\"ürün\"}}\n\n---\n\n## Detaylar\n\n| | |\n|---|---|\n| **Fiyat** | {{schema:@Product:offers:price}} {{schema:@Product:offers:priceCurrency}} |\n| **Mağaza** | {{site}} |\n| **Marka** | {{schema:@Product:brand:name}} |\n| **Durum** | {{schema:@Product:offers:availability|replace:\"https://schema.org/\":\"\"}} |\n| **Puan** | {{schema:@Product:aggregateRating:ratingValue}}/5 ({{schema:@Product:aggregateRating:reviewCount}} değerlendirme) |\n\n## Açıklama\n\n{{schema:@Product:description|slice:0,1000|trim}}\n\n---\n\n## Notlar\n\n",
+    "noteContentFormat": "{{schema:@Product:image.contentUrl|first|image:\"ürün\"}}\n\n---\n\n## Detaylar\n\n| | |\n|---|---|\n| **Fiyat** | {{schema:@Product:offers.price}} {{schema:@Product:offers.priceCurrency}} |\n| **Mağaza** | {{site}} |\n| **Marka** | {{schema:@Product:brand.name}} |\n| **Durum** | {{schema:@Product:offers.availability|replace:\"https://schema.org/\":\"\"}} |\n| **Puan** | {{schema:@Product:aggregateRating.ratingValue}}/5 ({{schema:@Product:aggregateRating.reviewCount}} değerlendirme) |\n\n## Açıklama\n\n{{schema:@Product:description|slice:0,1000|trim}}\n\n---\n\n## Notlar\n\n",
     "properties": [
       {
         "name": "type",
@@ -838,13 +919,13 @@
       },
       {
         "name": "price",
-        "value": "{{schema:@Product:offers:price}}",
+        "value": "{{schema:@Product:offers.price}}",
         "type": "text",
         "id": "sblurunp7"
       },
       {
         "name": "currency",
-        "value": "{{schema:@Product:offers:priceCurrency}}",
+        "value": "{{schema:@Product:offers.priceCurrency}}",
         "type": "text",
         "id": "sblurunp8"
       },
@@ -856,25 +937,25 @@
       },
       {
         "name": "brand",
-        "value": "{{schema:@Product:brand:name}}",
+        "value": "{{schema:@Product:brand.name}}",
         "type": "text",
         "id": "sblurunp10"
       },
       {
         "name": "rating",
-        "value": "{{schema:@Product:aggregateRating:ratingValue}}",
+        "value": "{{schema:@Product:aggregateRating.ratingValue}}",
         "type": "text",
         "id": "sblurunp11"
       },
       {
         "name": "availability",
-        "value": "{{schema:@Product:offers:availability|replace:\"https://schema.org/\":\"\"}}",
+        "value": "{{schema:@Product:offers.availability|replace:\"https://schema.org/\":\"\"}}",
         "type": "text",
         "id": "sblurunp12"
       },
       {
         "name": "image",
-        "value": "{{schema:@Product:image|first}}",
+        "value": "{{schema:@Product:image.contentUrl|first}}",
         "type": "text",
         "id": "sblurunp13"
       }
@@ -894,7 +975,7 @@
       "schema:@TechArticle"
     ],
     "noteNameFormat": "{{published|date:\"YYYY-MM-DD\"}} -- Makale -- {{title|safe_name:linux|slice:0,60}}",
-    "noteContentFormat": "{{highlights|map: item => item.content|join:\"\\n\\n\"|markdown|callout:(\"quote\", \"Vurgular\")}}\n\n{{content}}\n\n---\n\n## Notlar\n\n",
+    "noteContentFormat": "{{highlights|map: item => item.content|blockquote}}\n\n{{content}}\n\n---\n\n## Notlar\n\n",
     "properties": [
       {
         "name": "type",
