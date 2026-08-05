@@ -80,6 +80,15 @@ class BuildTest(unittest.TestCase):
                 build_settings(tmpdir)
             self.assertIn("bozuk.json", str(ctx.exception))
 
+    def test_order_json_tum_sablonlari_kapsiyor(self):
+        """_order.json glob yapmıyor; yeni bir şablon dosyası eklenip _order.json'a
+        eklenmezse build.py sessizce onu atlar. Bu test o boşluğu yakalar."""
+        sira = json.loads((SABLON_DIZINI / "_order.json").read_text(encoding="utf-8"))
+        dosya_kokleri = {
+            p.stem for p in SABLON_DIZINI.glob("*.json") if not p.name.startswith("_")
+        }
+        self.assertEqual(set(sira), dosya_kokleri)
+
 
 if __name__ == "__main__":
     unittest.main()

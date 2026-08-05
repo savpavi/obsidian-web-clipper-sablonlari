@@ -88,6 +88,11 @@ class ValidateTemplateTest(unittest.TestCase):
         t["noteContentFormat"] = "{{content}}"
         self.assertIn("Notlar", " ".join(validate_template(t)))
 
+    def test_bozuk_regex_tetikleyici_yakalanir(self):
+        t = gecerli_sablon()
+        t["triggers"] = ["/^https:\\/\\/ornek\\.com\\/(/"]
+        self.assertIn("regex", " ".join(validate_template(t)))
+
 
 if __name__ == "__main__":
     unittest.main()

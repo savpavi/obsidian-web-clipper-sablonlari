@@ -72,4 +72,13 @@ def validate_template(tmpl):
     if "## Notlar" not in tmpl.get("noteContentFormat", ""):
         hatalar.append(f"{ad}: gövdede '## Notlar' bölümü yok")
 
+    # /pattern/ biçimindeki tetikleyiciler regex'tir — derlenebilir olmalı.
+    for tetikleyici in tmpl.get("triggers", []):
+        if len(tetikleyici) >= 2 and tetikleyici.startswith("/") and tetikleyici.endswith("/"):
+            govde = tetikleyici[1:-1]
+            try:
+                re.compile(govde)
+            except re.error as e:
+                hatalar.append(f"{ad}: geçersiz regex tetikleyici '{tetikleyici}': {e}")
+
     return hatalar

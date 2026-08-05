@@ -14,7 +14,7 @@
     {"name": "tags", "value": "kaynak, kaynak/github, alan/teknik", "type": "multitext"},
     {"name": "source", "value": "{{url}}", "type": "text"},
     {"name": "source_type", "value": "github", "type": "text"},
-    {"name": "title", "value": "{{title|split:\" · GitHub\"|first}}", "type": "text"},
+    {"name": "title", "value": "{{title|split:\" · GitHub\"|first|split:\"GitHub - \"|last|split:\":\"|first}}", "type": "text"},
     {"name": "repo", "value": "{{url|split:\"github.com/\"|last}}", "type": "text"},
     {"name": "stars", "value": "{{selector:#repo-stars-counter-star}}", "type": "text"},
     {"name": "description", "value": "{{meta:property:og:description|slice:0,300}}", "type": "text"}

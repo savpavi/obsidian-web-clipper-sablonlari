@@ -6,6 +6,7 @@
   "context": "",
   "triggers": [
     "https://www.youtube.com/watch",
+    "https://youtube.com/watch",
     "https://m.youtube.com/watch",
     "https://youtu.be/"
   ],

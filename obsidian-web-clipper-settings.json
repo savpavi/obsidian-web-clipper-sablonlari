@@ -130,7 +130,7 @@
     },
     {
       "name": "score",
-      "type": "number",
+      "type": "text",
       "defaultValue": ""
     },
     {
@@ -181,11 +181,6 @@
     {
       "name": "words",
       "type": "number",
-      "defaultValue": ""
-    },
-    {
-      "name": "yazar",
-      "type": "text",
       "defaultValue": ""
     }
   ],
@@ -276,7 +271,7 @@
     "path": "00 Inbox",
     "context": "",
     "triggers": [
-      "/^https:\\/\\/eksisozluk\\.com\\/entry\\/\\d+/"
+      "/^https:\\/\\/(www\\.)?eksisozluk\\.com\\/entry\\/\\d+/"
     ],
     "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- Eksi Entry -- {{title|split:\" - ekşi sözlük\"|first|safe_name:linux|slice:0,60}}",
     "noteContentFormat": "> **{{title|split:\" - ekşi sözlük\"|first}}** · {{selector:a.entry-author|first}}\n\n{{selectorHtml:#entry-item-list li div.content|first|markdown|blockquote}}\n\n---\n\n## Notlar\n\n",
@@ -330,9 +325,9 @@
         "id": "sbleksientryp7"
       },
       {
-        "name": "yazar",
+        "name": "author",
         "value": "{{selector:a.entry-author|first}}",
-        "type": "text",
+        "type": "multitext",
         "id": "sbleksientryp8"
       },
       {
@@ -358,6 +353,7 @@
     "context": "",
     "triggers": [
       "https://www.youtube.com/watch",
+      "https://youtube.com/watch",
       "https://m.youtube.com/watch",
       "https://youtu.be/"
     ],
@@ -477,7 +473,7 @@
       },
       {
         "name": "title",
-        "value": "{{title|split:\" · GitHub\"|first}}",
+        "value": "{{title|split:\" · GitHub\"|first|split:\"GitHub - \"|last|split:\":\"|first}}",
         "type": "text",
         "id": "sblgithubp6"
       },
@@ -512,7 +508,7 @@
       "/^https:\\/\\/x\\.com\\/[A-Za-z0-9_]+\\/status\\/\\d+/",
       "/^https:\\/\\/twitter\\.com\\/[A-Za-z0-9_]+\\/status\\/\\d+/"
     ],
-    "noteNameFormat": "{{published|date:\"YYYY-MM-DD\"}} -- X -- {{url|split:\"/\"|slice:3,-2|first|safe_name:linux}}",
+    "noteNameFormat": "{{published|date:\"YYYY-MM-DD\"}} -- X -- {{url|split:\"/\"|slice:3,-2|first|safe_name:linux|slice:0,60}}",
     "noteContentFormat": "![tweet]({{url}})\n\n---\n\n{{title|split:\" on X: \"|last|slice:1,-5|remove_html|trim}}\n\n---\n\n## Notlar\n\n",
     "properties": [
       {
@@ -579,7 +575,7 @@
     "path": "00 Inbox",
     "context": "",
     "triggers": [
-      "/^https:\\/\\/(www|old)\\.reddit\\.com\\/r\\/\\w+\\/comments\\//"
+      "/^https:\\/\\/(www\\.|old\\.|sh\\.)?reddit\\.com\\/r\\/\\w+\\/comments\\//"
     ],
     "noteNameFormat": "{{selector:shreddit-post?created-timestamp|date:\"YYYY-MM-DD\"}} -- Reddit -- {{selector:shreddit-post?post-title|safe_name:linux|slice:0,60}}",
     "noteContentFormat": "> **{{selector:shreddit-post?subreddit-prefixed-name}}** · u/{{selector:shreddit-post?author}} · ⬆️ {{selector:shreddit-post?score}}\n\n---\n\n{{selectorHtml:shreddit-post div[slot=\"text-body\"]|markdown|trim}}\n\n---\n\n### İlk Yorum\n\n**{{selector:shreddit-comment?author|first}}**\n\n{{selectorHtml:shreddit-comment div[slot=\"comment\"]|first|markdown|blockquote}}\n\n---\n\n## Notlar\n\n",
@@ -641,7 +637,7 @@
       {
         "name": "score",
         "value": "{{selector:shreddit-post?score}}",
-        "type": "number",
+        "type": "text",
         "id": "sblredditp9"
       }
     ],

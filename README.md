@@ -150,6 +150,19 @@ kaybolur.
 çıkıyor ve yeniden import etmek eklentide kopya şablon yaratmıyor, mevcut
 olanı güncelliyor.
 
+Yeni bir şablon eklerken (mevcut bir dosyayı düzenlemek değil, `templates/`
+altına yeni bir `<ad>.json` koymak):
+
+1. Yukarıdaki adımlara ek olarak, yeni dosyayı `templates/_order.json`
+   dizisine de ekle. `build.py` bu listeyi kullanıyor, dizini glob'lamıyor —
+   listeye eklenmeyen bir şablon dosyası derlemeye sessizce girmez, `build.py`
+   yine "10 şablon derlendi" gibi başarı mesajı basar ve boşluk fark edilmez.
+2. Listedeki konumunu **kademesine göre** seç: önce URL öneki tetikleyicili
+   şablonlar, sonra regex tetikleyicililer, en sonda şema tetikleyicililer
+   ("Eşleşme mekaniği" bölümüne bakın). Liste sırası yalnızca **aynı
+   kademedeki** şablonlar arasında karar veriyor — farklı kademeler arasında
+   sıranın hiçbir etkisi yok.
+
 ## Canlı test sonuçları
 
 Şimdiye kadar doğrulanan yalnızca: JSON şeması geçerliliği, vault kural

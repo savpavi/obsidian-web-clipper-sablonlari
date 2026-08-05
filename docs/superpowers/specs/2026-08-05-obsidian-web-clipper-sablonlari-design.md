@@ -303,6 +303,29 @@ YouTube için `|replace` zincirinin yerini alıyor. `|safe_name:linux` platforma
 eski bir depolama biçiminden kalma yinelenmiş şablonlar (`path` değerleri hâlâ
 `Clippings/Articles`). Yeni üretilen dosyaya taşınmayacak.
 
+### Spesifikasyondan bilinçli sapmalar
+
+Aşağıdaki alanlar/tetikleyiciler bu dosyada tarif edilmiş ama uygulamada
+**bilinçli olarak** yer almıyor. Buradaki liste bir eksik değil, bir karar
+kaydı — bir sonraki okuyucu bunları "unutulmuş" sanıp yeniden açmasın diye.
+**Uygulama geçerli kaynak; bu doküman değil.**
+
+- **GitHub `language`** (§3) uygulanmadı. Statik olarak doğrulanabilir bir
+  seçicisi yok — `itemprop="programmingLanguage"` GitHub'ın sunduğu HTML'de
+  artık bulunmuyor, dil çubuğu istemci tarafında (client-rendered)
+  oluşturuluyor. Sunucudan gelen HTML'de yakalanacak bir DOM seçicisi yok.
+- **LinkedIn `author_title` ve `published`** (§7) uygulanmadı. Sayfa login
+  duvarının arkasında; şablon bilinçli olarak yalnızca `og:` meta
+  etiketlerini okuyor çünkü DOM class isimleri sık değişiyor ve login
+  duvarı arkasında zaten zengin bir DOM gelmiyor.
+- **Reddit gövdesindeki görsel adımı** (§5, "varsa görsel") uygulanmadı.
+  Eklemek bu setin en kırılgan şablonuna bir `shreddit-*` seçicisi daha
+  eklemek demek — kırılganlığı büyütmenin karşılığı düşük.
+- **GitHub tetikleyici regex'i** (§3) spesifikasyondakinden daha dar:
+  `^https://github\.com/[\w-]+/[\w.-]+$`. Uygulanan (`templates/github.json`)
+  daha geniş: kullanıcı adı segmentinde nokta'ya izin veriyor (`[\w.-]+`) ve
+  sondaki `/`'i tolere ediyor (`\/?$`). Burada da geçerli olan uygulama.
+
 ## Canlı klip testiyle doğrulanacaklar
 
 Statik olarak doğrulanamayan, gerçek sayfa klipslenerek sınanacak noktalar:

@@ -4,7 +4,7 @@
   "behavior": "create",
   "path": "00 Inbox",
   "context": "",
-  "triggers": ["/^https:\\/\\/(www|old)\\.reddit\\.com\\/r\\/\\w+\\/comments\\//"],
+  "triggers": ["/^https:\\/\\/(www\\.|old\\.|sh\\.)?reddit\\.com\\/r\\/\\w+\\/comments\\//"],
   "noteNameFormat": "{{selector:shreddit-post?created-timestamp|date:\"YYYY-MM-DD\"}} -- Reddit -- {{selector:shreddit-post?post-title|safe_name:linux|slice:0,60}}",
   "noteContentFormat": "> **{{selector:shreddit-post?subreddit-prefixed-name}}** · u/{{selector:shreddit-post?author}} · ⬆️ {{selector:shreddit-post?score}}\n\n---\n\n{{selectorHtml:shreddit-post div[slot=\"text-body\"]|markdown|trim}}\n\n---\n\n### İlk Yorum\n\n**{{selector:shreddit-comment?author|first}}**\n\n{{selectorHtml:shreddit-comment div[slot=\"comment\"]|first|markdown|blockquote}}\n\n---\n\n## Notlar\n\n",
   "properties": [
@@ -17,6 +17,6 @@
     {"name": "title", "value": "{{selector:shreddit-post?post-title|trim}}", "type": "text"},
     {"name": "subreddit", "value": "{{selector:shreddit-post?subreddit-prefixed-name}}", "type": "text"},
     {"name": "author", "value": "u/{{selector:shreddit-post?author}}", "type": "multitext"},
-    {"name": "score", "value": "{{selector:shreddit-post?score}}", "type": "number"}
+    {"name": "score", "value": "{{selector:shreddit-post?score}}", "type": "text"}
   ]
 }
