@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "0.1.0",
+  "name": "Instagram Post",
+  "behavior": "create",
+  "path": "00 Inbox",
+  "context": "",
+  "triggers": ["/^https:\\/\\/(www\\.)?instagram\\.com\\/(p|reel)\\//"],
+  "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- Instagram -- {{meta:property:og:title|split:\" on Instagram\"|first|safe_name:linux|slice:0,40}}",
+  "noteContentFormat": "{{image|image:\"kapak\"}}\n\n---\n\n{{meta:property:og:description|trim}}\n\n---\n\n## Notlar\n\n",
+  "properties": [
+    {"name": "type", "value": "referans", "type": "text"},
+    {"name": "date", "value": "{{date|date:\"YYYY-MM-DD\"}}", "type": "date"},
+    {"name": "created", "value": "{{date|date:\"YYYY-MM-DD\"}}", "type": "date"},
+    {"name": "tags", "value": "kaynak, kaynak/instagram", "type": "multitext"},
+    {"name": "source", "value": "{{url}}", "type": "text"},
+    {"name": "source_type", "value": "instagram", "type": "text"},
+    {"name": "title", "value": "{{meta:property:og:title|split:\" on Instagram\"|first}}", "type": "text"},
+    {"name": "author", "value": "{{meta:property:og:title|split:\" on Instagram\"|first}}", "type": "multitext"},
+    {"name": "image", "value": "{{image}}", "type": "text"}
+  ]
+}

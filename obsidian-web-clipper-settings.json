@@ -6,6 +6,8 @@
     "sblgithub",
     "sblx",
     "sblreddit",
+    "sblinstagram",
+    "sbllinkedin",
     "sblmakale"
   ],
   "vaults": [
@@ -82,6 +84,11 @@
     },
     {
       "name": "handle",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
+      "name": "image",
       "type": "text",
       "defaultValue": ""
     },
@@ -608,6 +615,145 @@
       }
     ],
     "id": "sblreddit"
+  },
+  "template_sblinstagram": {
+    "schemaVersion": "0.1.0",
+    "name": "Instagram Post",
+    "behavior": "create",
+    "path": "00 Inbox",
+    "context": "",
+    "triggers": [
+      "/^https:\\/\\/(www\\.)?instagram\\.com\\/(p|reel)\\//"
+    ],
+    "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- Instagram -- {{meta:property:og:title|split:\" on Instagram\"|first|safe_name:linux|slice:0,40}}",
+    "noteContentFormat": "{{image|image:\"kapak\"}}\n\n---\n\n{{meta:property:og:description|trim}}\n\n---\n\n## Notlar\n\n",
+    "properties": [
+      {
+        "name": "type",
+        "value": "referans",
+        "type": "text",
+        "id": "sblinstagramp0"
+      },
+      {
+        "name": "date",
+        "value": "{{date|date:\"YYYY-MM-DD\"}}",
+        "type": "date",
+        "id": "sblinstagramp1"
+      },
+      {
+        "name": "created",
+        "value": "{{date|date:\"YYYY-MM-DD\"}}",
+        "type": "date",
+        "id": "sblinstagramp2"
+      },
+      {
+        "name": "tags",
+        "value": "kaynak, kaynak/instagram",
+        "type": "multitext",
+        "id": "sblinstagramp3"
+      },
+      {
+        "name": "source",
+        "value": "{{url}}",
+        "type": "text",
+        "id": "sblinstagramp4"
+      },
+      {
+        "name": "source_type",
+        "value": "instagram",
+        "type": "text",
+        "id": "sblinstagramp5"
+      },
+      {
+        "name": "title",
+        "value": "{{meta:property:og:title|split:\" on Instagram\"|first}}",
+        "type": "text",
+        "id": "sblinstagramp6"
+      },
+      {
+        "name": "author",
+        "value": "{{meta:property:og:title|split:\" on Instagram\"|first}}",
+        "type": "multitext",
+        "id": "sblinstagramp7"
+      },
+      {
+        "name": "image",
+        "value": "{{image}}",
+        "type": "text",
+        "id": "sblinstagramp8"
+      }
+    ],
+    "id": "sblinstagram"
+  },
+  "template_sbllinkedin": {
+    "schemaVersion": "0.1.0",
+    "name": "LinkedIn Gönderi",
+    "behavior": "create",
+    "path": "00 Inbox",
+    "context": "",
+    "triggers": [
+      "/^https:\\/\\/(www\\.)?linkedin\\.com\\/posts\\//",
+      "/^https:\\/\\/(www\\.)?linkedin\\.com\\/feed\\/update\\//"
+    ],
+    "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- LinkedIn -- {{meta:property:og:title|split:\" on LinkedIn\"|first|safe_name:linux|slice:0,40}}",
+    "noteContentFormat": "{{content}}\n\n---\n\n## Notlar\n\n",
+    "properties": [
+      {
+        "name": "type",
+        "value": "referans",
+        "type": "text",
+        "id": "sbllinkedinp0"
+      },
+      {
+        "name": "date",
+        "value": "{{date|date:\"YYYY-MM-DD\"}}",
+        "type": "date",
+        "id": "sbllinkedinp1"
+      },
+      {
+        "name": "created",
+        "value": "{{date|date:\"YYYY-MM-DD\"}}",
+        "type": "date",
+        "id": "sbllinkedinp2"
+      },
+      {
+        "name": "tags",
+        "value": "kaynak, kaynak/linkedin",
+        "type": "multitext",
+        "id": "sbllinkedinp3"
+      },
+      {
+        "name": "source",
+        "value": "{{url}}",
+        "type": "text",
+        "id": "sbllinkedinp4"
+      },
+      {
+        "name": "source_type",
+        "value": "linkedin",
+        "type": "text",
+        "id": "sbllinkedinp5"
+      },
+      {
+        "name": "title",
+        "value": "{{meta:property:og:title|split:\" on LinkedIn\"|first}}",
+        "type": "text",
+        "id": "sbllinkedinp6"
+      },
+      {
+        "name": "author",
+        "value": "{{meta:property:og:title|split:\" on LinkedIn\"|first}}",
+        "type": "multitext",
+        "id": "sbllinkedinp7"
+      },
+      {
+        "name": "description",
+        "value": "{{meta:property:og:description|slice:0,300}}",
+        "type": "text",
+        "id": "sbllinkedinp8"
+      }
+    ],
+    "id": "sbllinkedin"
   },
   "template_sblmakale": {
     "schemaVersion": "0.1.0",
