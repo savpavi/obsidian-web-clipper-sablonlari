@@ -361,7 +361,7 @@
       "/^https:\\/\\/(www\\.)?eksisozluk\\.com\\/[^\\/?]+--\\d+/"
     ],
     "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- Eksi Klip -- {{title|split:\" - ekşi sözlük\"|first|safe_name:linux|slice:0,60}}",
-    "noteContentFormat": "> **{{title|split:\" - ekşi sözlük\"|first}}** · sayfa klibi · {{date|date:\"YYYY-MM-DD\"}}\n\n---\n\n{{selectorHtml:#entry-item-list li div.content|join:\"\\n\\n---\\n\\n\"|markdown|trim}}\n\n---\n\n## Notlar\n\n",
+    "noteContentFormat": "> **{{title|split:\" - ekşi sözlük\"|first}}** · sayfa klibi · {{date|date:\"YYYY-MM-DD\"}}\n\n---\n\n{{selectorHtml:#entry-item-list li div.content|join:\"\\n\\n···\\n\\n\"|markdown|trim}}\n\n---\n\n## Notlar\n\n",
     "properties": [
       {
         "name": "type",

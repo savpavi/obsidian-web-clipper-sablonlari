@@ -217,8 +217,25 @@ Obsidian'ın `==vurgu==` sözdizimiyle geldi. Bu, "üstte vurgular, altta tam
 metin" tasarım kararını geçersiz kıldı — bilgi zaten gövdede olduğu için üstteki
 blok kaldırıldı, `> ` artığı da onunla birlikte gitti.
 
-Hâlâ denenmemiş: Ekşi entry permalink'i, Ekşi Klip'in daraltılmış seçicisi
-(düzeltmeden sonra), Reddit'in yorum bölümü.
+### Dördüncü tur (kalan üç şablon)
+
+| Şablon | Durum | Bulgu |
+|---|---|---|
+| Ekşi Entry | ✅ | `author: msb`, `entry_id`, `baslik`, `moc` dolu; entry metni alıntı bloğu olarak temiz geldi. |
+| Ekşi Klip | ✅ | Daraltılmış seçici tuttu — paylaş/şikayet/modlog menüleri gitti, sayfadaki 10 entry ve 10 yazar doğru geldi. |
+| Reddit Post | ✅ | Daha önce denenmemiş **"İlk Yorum"** bölümü de dahil hepsi çalışıyor. |
+| Boş vurgu | ✅ | Yeni notların hiçbirinde `> ` artığı yok. Kalan 6 örnek düzeltme öncesi klipler. |
+
+Bu turda çıkan tek kusur: Ekşi Klip'te entry'ler arasına koyduğum `---`
+ayırıcı, `markdown` filtresi tarafından `\---` diye kaçırılıyordu (turndown
+`---`'ı olası yatay çizgi/başlık altı çizgisi sayıp escape ediyor), yani
+yatay çizgi yerine düz metin görünüyordu. Ayırıcı `···` yapıldı.
+
+**Şablon setinin durumu:** Instagram ve LinkedIn dışında hepsi doğrulandı.
+O ikisi login duvarı arkasında `og:` etiketleri veri döndürmediği için
+boş kalıyor; DOM seçicilerine inmeden çözümü yok, bilinçli olarak bu halde
+bırakıldı. GitHub'ın `stars` alanı da istemci tarafında render edildiği
+için boş — şablonun geri kalanı çalışıyor.
 
 Test kriteri (bkz. tasarım dokümanı, "Test kriteri" bölümü): dosya adı
 `YYYY-MM-DD -- {{Kaynak}} -- {{Başlık}}` desenine uyuyor mu, frontmatter
