@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "0.1.0",
+  "name": "Makale",
+  "behavior": "create",
+  "path": "00 Inbox",
+  "context": "",
+  "triggers": [
+    "schema:@Article",
+    "schema:@NewsArticle",
+    "schema:@BlogPosting",
+    "schema:@TechArticle"
+  ],
+  "noteNameFormat": "{{published|date:\"YYYY-MM-DD\"}} -- Makale -- {{title|safe_name:linux|slice:0,60}}",
+  "noteContentFormat": "{{highlights|map: item => item.content|join:\"\\n\\n\"|markdown|callout:(\"quote\", \"Vurgular\")}}\n\n{{content}}\n\n---\n\n## Notlar\n\n",
+  "properties": [
+    {"name": "type", "value": "referans", "type": "text"},
+    {"name": "date", "value": "{{published|date:\"YYYY-MM-DD\"}}", "type": "date"},
+    {"name": "created", "value": "{{date|date:\"YYYY-MM-DD\"}}", "type": "date"},
+    {"name": "tags", "value": "kaynak, kaynak/makale", "type": "multitext"},
+    {"name": "source", "value": "{{url}}", "type": "text"},
+    {"name": "source_type", "value": "makale", "type": "text"},
+    {"name": "title", "value": "{{title}}", "type": "text"},
+    {"name": "author", "value": "{{author}}", "type": "multitext"},
+    {"name": "site", "value": "{{site}}", "type": "text"},
+    {"name": "description", "value": "{{description|slice:0,300}}", "type": "text"},
+    {"name": "words", "value": "{{words}}", "type": "number"}
+  ]
+}

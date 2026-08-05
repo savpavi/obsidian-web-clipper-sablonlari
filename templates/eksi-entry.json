@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "0.1.0",
+  "name": "Ekşi Entry",
+  "behavior": "create",
+  "path": "00 Inbox",
+  "context": "",
+  "triggers": ["/^https:\\/\\/eksisozluk\\.com\\/entry\\/\\d+/"],
+  "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- Eksi Entry -- {{title|split:\" - ekşi sözlük\"|first|safe_name:linux|slice:0,60}}",
+  "noteContentFormat": "> **{{title|split:\" - ekşi sözlük\"|first}}** · {{selector:a.entry-author|first}}\n\n{{selectorHtml:#entry-item-list li div.content|first|markdown|blockquote}}\n\n---\n\n## Notlar\n\n",
+  "properties": [
+    {"name": "type", "value": "referans", "type": "text"},
+    {"name": "date", "value": "{{date|date:\"YYYY-MM-DD\"}}", "type": "date"},
+    {"name": "created", "value": "{{date|date:\"YYYY-MM-DD\"}}", "type": "date"},
+    {"name": "tags", "value": "kaynak, kaynak/eksi, eksi", "type": "multitext"},
+    {"name": "source", "value": "{{url}}", "type": "text"},
+    {"name": "source_type", "value": "eksi-entry", "type": "text"},
+    {"name": "title", "value": "{{title|split:\" - ekşi sözlük\"|first}}", "type": "text"},
+    {"name": "baslik", "value": "{{title|split:\" - ekşi sözlük\"|first}}", "type": "text"},
+    {"name": "yazar", "value": "{{selector:a.entry-author|first}}", "type": "text"},
+    {"name": "entry_id", "value": "{{url|split:\"/entry/\"|last}}", "type": "text"},
+    {"name": "moc", "value": "[[Eksi Kaynaklari MOC]]", "type": "text"}
+  ]
+}
