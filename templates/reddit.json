@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "0.1.0",
+  "name": "Reddit Post",
+  "behavior": "create",
+  "path": "00 Inbox",
+  "context": "",
+  "triggers": ["/^https:\\/\\/(www\\.|old\\.|sh\\.)?reddit\\.com\\/r\\/\\w+\\/comments\\//"],
+  "noteNameFormat": "{{selector:shreddit-post?created-timestamp|date:\"YYYY-MM-DD\"}} -- Reddit -- {{selector:shreddit-post?post-title|safe_name:linux|slice:0,60}}",
+  "noteContentFormat": "> **{{selector:shreddit-post?subreddit-prefixed-name}}** · u/{{selector:shreddit-post?author}} · ⬆️ {{selector:shreddit-post?score}}\n\n---\n\n{{selectorHtml:shreddit-post div[slot=\"text-body\"]|markdown|trim}}\n\n---\n\n### İlk Yorum\n\n**{{selector:shreddit-comment?author|first}}**\n\n{{selectorHtml:shreddit-comment div[slot=\"comment\"]|first|markdown|blockquote}}\n\n---\n\n## Notlar\n\n",
+  "properties": [
+    {"name": "type", "value": "referans", "type": "text"},
+    {"name": "date", "value": "{{selector:shreddit-post?created-timestamp|date:\"YYYY-MM-DD\"}}", "type": "date"},
+    {"name": "created", "value": "{{date|date:\"YYYY-MM-DD\"}}", "type": "date"},
+    {"name": "tags", "value": "kaynak, kaynak/reddit", "type": "multitext"},
+    {"name": "source", "value": "{{url}}", "type": "text"},
+    {"name": "source_type", "value": "reddit", "type": "text"},
+    {"name": "title", "value": "{{selector:shreddit-post?post-title|trim}}", "type": "text"},
+    {"name": "subreddit", "value": "{{selector:shreddit-post?subreddit-prefixed-name}}", "type": "text"},
+    {"name": "author", "value": "u/{{selector:shreddit-post?author}}", "type": "multitext"},
+    {"name": "score", "value": "{{selector:shreddit-post?score}}", "type": "text"}
+  ]
+}

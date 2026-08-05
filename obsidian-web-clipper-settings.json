@@ -1,0 +1,968 @@
+{
+  "template_list": [
+    "sblvarsayilan",
+    "sbleksientry",
+    "sblyoutube",
+    "sblgithub",
+    "sblx",
+    "sblreddit",
+    "sblinstagram",
+    "sbllinkedin",
+    "sblurun",
+    "sblmakale"
+  ],
+  "vaults": [
+    "Aktif Kasa"
+  ],
+  "general_settings": {
+    "betaFeatures": false,
+    "legacyMode": false,
+    "openBehavior": "popup",
+    "saveBehavior": "addToObsidian",
+    "showMoreActionsButton": false,
+    "silentOpen": false
+  },
+  "highlighter_settings": {
+    "alwaysShowHighlights": true,
+    "highlightBehavior": "highlight-inline",
+    "highlighterEnabled": true
+  },
+  "interpreter_settings": {
+    "defaultPromptContext": "",
+    "interpreterAutoRun": false,
+    "interpreterEnabled": false,
+    "interpreterModel": "",
+    "models": [],
+    "providers": []
+  },
+  "reader_settings": {
+    "fontSize": 1.5,
+    "lineHeight": 1.6,
+    "maxWidth": 38,
+    "theme": "default",
+    "themeMode": "auto"
+  },
+  "property_types": [
+    {
+      "name": "author",
+      "type": "multitext",
+      "defaultValue": ""
+    },
+    {
+      "name": "availability",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
+      "name": "baslik",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
+      "name": "brand",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
+      "name": "channel",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
+      "name": "created",
+      "type": "date",
+      "defaultValue": ""
+    },
+    {
+      "name": "currency",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
+      "name": "date",
+      "type": "date",
+      "defaultValue": ""
+    },
+    {
+      "name": "description",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
+      "name": "duration",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
+      "name": "entry_id",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
+      "name": "handle",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
+      "name": "image",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
+      "name": "moc",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
+      "name": "price",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
+      "name": "rating",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
+      "name": "repo",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
+      "name": "score",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
+      "name": "site",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
+      "name": "source",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
+      "name": "source_type",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
+      "name": "stars",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
+      "name": "store",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
+      "name": "subreddit",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
+      "name": "tags",
+      "type": "multitext",
+      "defaultValue": ""
+    },
+    {
+      "name": "title",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
+      "name": "type",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
+      "name": "words",
+      "type": "number",
+      "defaultValue": ""
+    }
+  ],
+  "stats": {
+    "addToObsidian": 0,
+    "copyToClipboard": 0,
+    "saveFile": 0,
+    "share": 0
+  },
+  "migrationVersion": 1,
+  "template_sblvarsayilan": {
+    "schemaVersion": "0.1.0",
+    "name": "Varsayılan",
+    "behavior": "create",
+    "path": "00 Inbox",
+    "context": "",
+    "triggers": [],
+    "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- Klip -- {{title|safe_name:linux|slice:0,60}}",
+    "noteContentFormat": "{{highlights|map: item => item.content|join:\"\\n\\n\"|markdown|callout:(\"quote\", \"Vurgular\")}}\n\n{{content}}\n\n---\n\n## Notlar\n\n",
+    "properties": [
+      {
+        "name": "type",
+        "value": "referans",
+        "type": "text",
+        "id": "sblvarsayilanp0"
+      },
+      {
+        "name": "date",
+        "value": "{{date|date:\"YYYY-MM-DD\"}}",
+        "type": "date",
+        "id": "sblvarsayilanp1"
+      },
+      {
+        "name": "created",
+        "value": "{{date|date:\"YYYY-MM-DD\"}}",
+        "type": "date",
+        "id": "sblvarsayilanp2"
+      },
+      {
+        "name": "tags",
+        "value": "kaynak",
+        "type": "multitext",
+        "id": "sblvarsayilanp3"
+      },
+      {
+        "name": "source",
+        "value": "{{url}}",
+        "type": "text",
+        "id": "sblvarsayilanp4"
+      },
+      {
+        "name": "source_type",
+        "value": "klip",
+        "type": "text",
+        "id": "sblvarsayilanp5"
+      },
+      {
+        "name": "title",
+        "value": "{{title}}",
+        "type": "text",
+        "id": "sblvarsayilanp6"
+      },
+      {
+        "name": "author",
+        "value": "{{author}}",
+        "type": "multitext",
+        "id": "sblvarsayilanp7"
+      },
+      {
+        "name": "site",
+        "value": "{{site}}",
+        "type": "text",
+        "id": "sblvarsayilanp8"
+      },
+      {
+        "name": "description",
+        "value": "{{description|slice:0,300}}",
+        "type": "text",
+        "id": "sblvarsayilanp9"
+      }
+    ],
+    "id": "sblvarsayilan"
+  },
+  "template_sbleksientry": {
+    "schemaVersion": "0.1.0",
+    "name": "Ekşi Entry",
+    "behavior": "create",
+    "path": "00 Inbox",
+    "context": "",
+    "triggers": [
+      "/^https:\\/\\/(www\\.)?eksisozluk\\.com\\/entry\\/\\d+/"
+    ],
+    "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- Eksi Entry -- {{title|split:\" - ekşi sözlük\"|first|safe_name:linux|slice:0,60}}",
+    "noteContentFormat": "> **{{title|split:\" - ekşi sözlük\"|first}}** · {{selector:a.entry-author|first}}\n\n{{selectorHtml:#entry-item-list li div.content|first|markdown|blockquote}}\n\n---\n\n## Notlar\n\n",
+    "properties": [
+      {
+        "name": "type",
+        "value": "referans",
+        "type": "text",
+        "id": "sbleksientryp0"
+      },
+      {
+        "name": "date",
+        "value": "{{date|date:\"YYYY-MM-DD\"}}",
+        "type": "date",
+        "id": "sbleksientryp1"
+      },
+      {
+        "name": "created",
+        "value": "{{date|date:\"YYYY-MM-DD\"}}",
+        "type": "date",
+        "id": "sbleksientryp2"
+      },
+      {
+        "name": "tags",
+        "value": "kaynak, kaynak/eksi, eksi",
+        "type": "multitext",
+        "id": "sbleksientryp3"
+      },
+      {
+        "name": "source",
+        "value": "{{url}}",
+        "type": "text",
+        "id": "sbleksientryp4"
+      },
+      {
+        "name": "source_type",
+        "value": "eksi-entry",
+        "type": "text",
+        "id": "sbleksientryp5"
+      },
+      {
+        "name": "title",
+        "value": "{{title|split:\" - ekşi sözlük\"|first}}",
+        "type": "text",
+        "id": "sbleksientryp6"
+      },
+      {
+        "name": "baslik",
+        "value": "{{title|split:\" - ekşi sözlük\"|first}}",
+        "type": "text",
+        "id": "sbleksientryp7"
+      },
+      {
+        "name": "author",
+        "value": "{{selector:a.entry-author|first}}",
+        "type": "multitext",
+        "id": "sbleksientryp8"
+      },
+      {
+        "name": "entry_id",
+        "value": "{{url|split:\"/entry/\"|last}}",
+        "type": "text",
+        "id": "sbleksientryp9"
+      },
+      {
+        "name": "moc",
+        "value": "[[Eksi Kaynaklari MOC]]",
+        "type": "text",
+        "id": "sbleksientryp10"
+      }
+    ],
+    "id": "sbleksientry"
+  },
+  "template_sblyoutube": {
+    "schemaVersion": "0.1.0",
+    "name": "YouTube Video",
+    "behavior": "create",
+    "path": "00 Inbox",
+    "context": "",
+    "triggers": [
+      "https://www.youtube.com/watch",
+      "https://youtube.com/watch",
+      "https://m.youtube.com/watch",
+      "https://youtu.be/"
+    ],
+    "noteNameFormat": "{{schema:@VideoObject:uploadDate|date:\"YYYY-MM-DD\"}} -- YouTube -- {{schema:@VideoObject:name|safe_name:linux|slice:0,60}}",
+    "noteContentFormat": "![video]({{url}})\n\n---\n\n## Açıklama\n\n{{schema:@VideoObject:description|slice:0,2000|trim}}\n\n---\n\n## Notlar\n\n",
+    "properties": [
+      {
+        "name": "type",
+        "value": "referans",
+        "type": "text",
+        "id": "sblyoutubep0"
+      },
+      {
+        "name": "date",
+        "value": "{{schema:@VideoObject:uploadDate|date:\"YYYY-MM-DD\"}}",
+        "type": "date",
+        "id": "sblyoutubep1"
+      },
+      {
+        "name": "created",
+        "value": "{{date|date:\"YYYY-MM-DD\"}}",
+        "type": "date",
+        "id": "sblyoutubep2"
+      },
+      {
+        "name": "tags",
+        "value": "kaynak, kaynak/youtube",
+        "type": "multitext",
+        "id": "sblyoutubep3"
+      },
+      {
+        "name": "source",
+        "value": "{{url}}",
+        "type": "text",
+        "id": "sblyoutubep4"
+      },
+      {
+        "name": "source_type",
+        "value": "youtube",
+        "type": "text",
+        "id": "sblyoutubep5"
+      },
+      {
+        "name": "title",
+        "value": "{{schema:@VideoObject:name}}",
+        "type": "text",
+        "id": "sblyoutubep6"
+      },
+      {
+        "name": "channel",
+        "value": "{{schema:@VideoObject:author}}",
+        "type": "text",
+        "id": "sblyoutubep7"
+      },
+      {
+        "name": "duration",
+        "value": "{{schema:@VideoObject:duration|duration:\"HH:mm:ss\"}}",
+        "type": "text",
+        "id": "sblyoutubep8"
+      },
+      {
+        "name": "author",
+        "value": "{{schema:@VideoObject:author}}",
+        "type": "multitext",
+        "id": "sblyoutubep9"
+      }
+    ],
+    "id": "sblyoutube"
+  },
+  "template_sblgithub": {
+    "schemaVersion": "0.1.0",
+    "name": "GitHub Repo",
+    "behavior": "create",
+    "path": "00 Inbox",
+    "context": "",
+    "triggers": [
+      "/^https:\\/\\/github\\.com\\/[\\w.-]+\\/[\\w.-]+\\/?$/"
+    ],
+    "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- GitHub -- {{url|split:\"github.com/\"|last|replace:\"/\":\"-\"|safe_name:linux|slice:0,60}}",
+    "noteContentFormat": "> {{meta:property:og:description|slice:0,300}}\n\n---\n\n{{content}}\n\n---\n\n## Notlar\n\n",
+    "properties": [
+      {
+        "name": "type",
+        "value": "referans",
+        "type": "text",
+        "id": "sblgithubp0"
+      },
+      {
+        "name": "date",
+        "value": "{{date|date:\"YYYY-MM-DD\"}}",
+        "type": "date",
+        "id": "sblgithubp1"
+      },
+      {
+        "name": "created",
+        "value": "{{date|date:\"YYYY-MM-DD\"}}",
+        "type": "date",
+        "id": "sblgithubp2"
+      },
+      {
+        "name": "tags",
+        "value": "kaynak, kaynak/github, alan/teknik",
+        "type": "multitext",
+        "id": "sblgithubp3"
+      },
+      {
+        "name": "source",
+        "value": "{{url}}",
+        "type": "text",
+        "id": "sblgithubp4"
+      },
+      {
+        "name": "source_type",
+        "value": "github",
+        "type": "text",
+        "id": "sblgithubp5"
+      },
+      {
+        "name": "title",
+        "value": "{{title|split:\" · GitHub\"|first|split:\"GitHub - \"|last|split:\":\"|first}}",
+        "type": "text",
+        "id": "sblgithubp6"
+      },
+      {
+        "name": "repo",
+        "value": "{{url|split:\"github.com/\"|last}}",
+        "type": "text",
+        "id": "sblgithubp7"
+      },
+      {
+        "name": "stars",
+        "value": "{{selector:#repo-stars-counter-star}}",
+        "type": "text",
+        "id": "sblgithubp8"
+      },
+      {
+        "name": "description",
+        "value": "{{meta:property:og:description|slice:0,300}}",
+        "type": "text",
+        "id": "sblgithubp9"
+      }
+    ],
+    "id": "sblgithub"
+  },
+  "template_sblx": {
+    "schemaVersion": "0.1.0",
+    "name": "X (Twitter) Post",
+    "behavior": "create",
+    "path": "00 Inbox",
+    "context": "",
+    "triggers": [
+      "/^https:\\/\\/x\\.com\\/[A-Za-z0-9_]+\\/status\\/\\d+/",
+      "/^https:\\/\\/twitter\\.com\\/[A-Za-z0-9_]+\\/status\\/\\d+/"
+    ],
+    "noteNameFormat": "{{published|date:\"YYYY-MM-DD\"}} -- X -- {{url|split:\"/\"|slice:3,-2|first|safe_name:linux|slice:0,60}}",
+    "noteContentFormat": "![tweet]({{url}})\n\n---\n\n{{title|split:\" on X: \"|last|slice:1,-5|remove_html|trim}}\n\n---\n\n## Notlar\n\n",
+    "properties": [
+      {
+        "name": "type",
+        "value": "referans",
+        "type": "text",
+        "id": "sblxp0"
+      },
+      {
+        "name": "date",
+        "value": "{{published|date:\"YYYY-MM-DD\"}}",
+        "type": "date",
+        "id": "sblxp1"
+      },
+      {
+        "name": "created",
+        "value": "{{date|date:\"YYYY-MM-DD\"}}",
+        "type": "date",
+        "id": "sblxp2"
+      },
+      {
+        "name": "tags",
+        "value": "kaynak, kaynak/x",
+        "type": "multitext",
+        "id": "sblxp3"
+      },
+      {
+        "name": "source",
+        "value": "{{url}}",
+        "type": "text",
+        "id": "sblxp4"
+      },
+      {
+        "name": "source_type",
+        "value": "x",
+        "type": "text",
+        "id": "sblxp5"
+      },
+      {
+        "name": "title",
+        "value": "{{title|split:\" on X: \"|first}}",
+        "type": "text",
+        "id": "sblxp6"
+      },
+      {
+        "name": "author",
+        "value": "{{title|split:\" on X: \"|first}}",
+        "type": "multitext",
+        "id": "sblxp7"
+      },
+      {
+        "name": "handle",
+        "value": "@{{url|split:\"/\"|slice:3,-2|first}}",
+        "type": "text",
+        "id": "sblxp8"
+      }
+    ],
+    "id": "sblx"
+  },
+  "template_sblreddit": {
+    "schemaVersion": "0.1.0",
+    "name": "Reddit Post",
+    "behavior": "create",
+    "path": "00 Inbox",
+    "context": "",
+    "triggers": [
+      "/^https:\\/\\/(www\\.|old\\.|sh\\.)?reddit\\.com\\/r\\/\\w+\\/comments\\//"
+    ],
+    "noteNameFormat": "{{selector:shreddit-post?created-timestamp|date:\"YYYY-MM-DD\"}} -- Reddit -- {{selector:shreddit-post?post-title|safe_name:linux|slice:0,60}}",
+    "noteContentFormat": "> **{{selector:shreddit-post?subreddit-prefixed-name}}** · u/{{selector:shreddit-post?author}} · ⬆️ {{selector:shreddit-post?score}}\n\n---\n\n{{selectorHtml:shreddit-post div[slot=\"text-body\"]|markdown|trim}}\n\n---\n\n### İlk Yorum\n\n**{{selector:shreddit-comment?author|first}}**\n\n{{selectorHtml:shreddit-comment div[slot=\"comment\"]|first|markdown|blockquote}}\n\n---\n\n## Notlar\n\n",
+    "properties": [
+      {
+        "name": "type",
+        "value": "referans",
+        "type": "text",
+        "id": "sblredditp0"
+      },
+      {
+        "name": "date",
+        "value": "{{selector:shreddit-post?created-timestamp|date:\"YYYY-MM-DD\"}}",
+        "type": "date",
+        "id": "sblredditp1"
+      },
+      {
+        "name": "created",
+        "value": "{{date|date:\"YYYY-MM-DD\"}}",
+        "type": "date",
+        "id": "sblredditp2"
+      },
+      {
+        "name": "tags",
+        "value": "kaynak, kaynak/reddit",
+        "type": "multitext",
+        "id": "sblredditp3"
+      },
+      {
+        "name": "source",
+        "value": "{{url}}",
+        "type": "text",
+        "id": "sblredditp4"
+      },
+      {
+        "name": "source_type",
+        "value": "reddit",
+        "type": "text",
+        "id": "sblredditp5"
+      },
+      {
+        "name": "title",
+        "value": "{{selector:shreddit-post?post-title|trim}}",
+        "type": "text",
+        "id": "sblredditp6"
+      },
+      {
+        "name": "subreddit",
+        "value": "{{selector:shreddit-post?subreddit-prefixed-name}}",
+        "type": "text",
+        "id": "sblredditp7"
+      },
+      {
+        "name": "author",
+        "value": "u/{{selector:shreddit-post?author}}",
+        "type": "multitext",
+        "id": "sblredditp8"
+      },
+      {
+        "name": "score",
+        "value": "{{selector:shreddit-post?score}}",
+        "type": "text",
+        "id": "sblredditp9"
+      }
+    ],
+    "id": "sblreddit"
+  },
+  "template_sblinstagram": {
+    "schemaVersion": "0.1.0",
+    "name": "Instagram Post",
+    "behavior": "create",
+    "path": "00 Inbox",
+    "context": "",
+    "triggers": [
+      "/^https:\\/\\/(www\\.)?instagram\\.com\\/(p|reel)\\//"
+    ],
+    "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- Instagram -- {{meta:property:og:title|split:\" on Instagram\"|first|safe_name:linux|slice:0,40}}",
+    "noteContentFormat": "{{image|image:\"kapak\"}}\n\n---\n\n{{meta:property:og:description|trim}}\n\n---\n\n## Notlar\n\n",
+    "properties": [
+      {
+        "name": "type",
+        "value": "referans",
+        "type": "text",
+        "id": "sblinstagramp0"
+      },
+      {
+        "name": "date",
+        "value": "{{date|date:\"YYYY-MM-DD\"}}",
+        "type": "date",
+        "id": "sblinstagramp1"
+      },
+      {
+        "name": "created",
+        "value": "{{date|date:\"YYYY-MM-DD\"}}",
+        "type": "date",
+        "id": "sblinstagramp2"
+      },
+      {
+        "name": "tags",
+        "value": "kaynak, kaynak/instagram",
+        "type": "multitext",
+        "id": "sblinstagramp3"
+      },
+      {
+        "name": "source",
+        "value": "{{url}}",
+        "type": "text",
+        "id": "sblinstagramp4"
+      },
+      {
+        "name": "source_type",
+        "value": "instagram",
+        "type": "text",
+        "id": "sblinstagramp5"
+      },
+      {
+        "name": "title",
+        "value": "{{meta:property:og:title|split:\" on Instagram\"|first}}",
+        "type": "text",
+        "id": "sblinstagramp6"
+      },
+      {
+        "name": "author",
+        "value": "{{meta:property:og:title|split:\" on Instagram\"|first}}",
+        "type": "multitext",
+        "id": "sblinstagramp7"
+      },
+      {
+        "name": "image",
+        "value": "{{image}}",
+        "type": "text",
+        "id": "sblinstagramp8"
+      }
+    ],
+    "id": "sblinstagram"
+  },
+  "template_sbllinkedin": {
+    "schemaVersion": "0.1.0",
+    "name": "LinkedIn Gönderi",
+    "behavior": "create",
+    "path": "00 Inbox",
+    "context": "",
+    "triggers": [
+      "/^https:\\/\\/(www\\.)?linkedin\\.com\\/posts\\//",
+      "/^https:\\/\\/(www\\.)?linkedin\\.com\\/feed\\/update\\//"
+    ],
+    "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- LinkedIn -- {{meta:property:og:title|split:\" on LinkedIn\"|first|safe_name:linux|slice:0,40}}",
+    "noteContentFormat": "{{content}}\n\n---\n\n## Notlar\n\n",
+    "properties": [
+      {
+        "name": "type",
+        "value": "referans",
+        "type": "text",
+        "id": "sbllinkedinp0"
+      },
+      {
+        "name": "date",
+        "value": "{{date|date:\"YYYY-MM-DD\"}}",
+        "type": "date",
+        "id": "sbllinkedinp1"
+      },
+      {
+        "name": "created",
+        "value": "{{date|date:\"YYYY-MM-DD\"}}",
+        "type": "date",
+        "id": "sbllinkedinp2"
+      },
+      {
+        "name": "tags",
+        "value": "kaynak, kaynak/linkedin",
+        "type": "multitext",
+        "id": "sbllinkedinp3"
+      },
+      {
+        "name": "source",
+        "value": "{{url}}",
+        "type": "text",
+        "id": "sbllinkedinp4"
+      },
+      {
+        "name": "source_type",
+        "value": "linkedin",
+        "type": "text",
+        "id": "sbllinkedinp5"
+      },
+      {
+        "name": "title",
+        "value": "{{meta:property:og:title|split:\" on LinkedIn\"|first}}",
+        "type": "text",
+        "id": "sbllinkedinp6"
+      },
+      {
+        "name": "author",
+        "value": "{{meta:property:og:title|split:\" on LinkedIn\"|first}}",
+        "type": "multitext",
+        "id": "sbllinkedinp7"
+      },
+      {
+        "name": "description",
+        "value": "{{meta:property:og:description|slice:0,300}}",
+        "type": "text",
+        "id": "sbllinkedinp8"
+      }
+    ],
+    "id": "sbllinkedin"
+  },
+  "template_sblurun": {
+    "schemaVersion": "0.1.0",
+    "name": "Ürün",
+    "behavior": "create",
+    "path": "00 Inbox",
+    "context": "",
+    "triggers": [
+      "schema:@Product"
+    ],
+    "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- Urun -- {{schema:@Product:name|safe_name:linux|slice:0,60}}",
+    "noteContentFormat": "{{schema:@Product:image|first|image:\"ürün\"}}\n\n---\n\n## Detaylar\n\n| | |\n|---|---|\n| **Fiyat** | {{schema:@Product:offers:price}} {{schema:@Product:offers:priceCurrency}} |\n| **Mağaza** | {{site}} |\n| **Marka** | {{schema:@Product:brand:name}} |\n| **Durum** | {{schema:@Product:offers:availability|replace:\"https://schema.org/\":\"\"}} |\n| **Puan** | {{schema:@Product:aggregateRating:ratingValue}}/5 ({{schema:@Product:aggregateRating:reviewCount}} değerlendirme) |\n\n## Açıklama\n\n{{schema:@Product:description|slice:0,1000|trim}}\n\n---\n\n## Notlar\n\n",
+    "properties": [
+      {
+        "name": "type",
+        "value": "referans",
+        "type": "text",
+        "id": "sblurunp0"
+      },
+      {
+        "name": "date",
+        "value": "{{date|date:\"YYYY-MM-DD\"}}",
+        "type": "date",
+        "id": "sblurunp1"
+      },
+      {
+        "name": "created",
+        "value": "{{date|date:\"YYYY-MM-DD\"}}",
+        "type": "date",
+        "id": "sblurunp2"
+      },
+      {
+        "name": "tags",
+        "value": "kaynak, kaynak/urun",
+        "type": "multitext",
+        "id": "sblurunp3"
+      },
+      {
+        "name": "source",
+        "value": "{{url}}",
+        "type": "text",
+        "id": "sblurunp4"
+      },
+      {
+        "name": "source_type",
+        "value": "urun",
+        "type": "text",
+        "id": "sblurunp5"
+      },
+      {
+        "name": "title",
+        "value": "{{schema:@Product:name}}",
+        "type": "text",
+        "id": "sblurunp6"
+      },
+      {
+        "name": "price",
+        "value": "{{schema:@Product:offers:price}}",
+        "type": "text",
+        "id": "sblurunp7"
+      },
+      {
+        "name": "currency",
+        "value": "{{schema:@Product:offers:priceCurrency}}",
+        "type": "text",
+        "id": "sblurunp8"
+      },
+      {
+        "name": "store",
+        "value": "{{site}}",
+        "type": "text",
+        "id": "sblurunp9"
+      },
+      {
+        "name": "brand",
+        "value": "{{schema:@Product:brand:name}}",
+        "type": "text",
+        "id": "sblurunp10"
+      },
+      {
+        "name": "rating",
+        "value": "{{schema:@Product:aggregateRating:ratingValue}}",
+        "type": "text",
+        "id": "sblurunp11"
+      },
+      {
+        "name": "availability",
+        "value": "{{schema:@Product:offers:availability|replace:\"https://schema.org/\":\"\"}}",
+        "type": "text",
+        "id": "sblurunp12"
+      },
+      {
+        "name": "image",
+        "value": "{{schema:@Product:image|first}}",
+        "type": "text",
+        "id": "sblurunp13"
+      }
+    ],
+    "id": "sblurun"
+  },
+  "template_sblmakale": {
+    "schemaVersion": "0.1.0",
+    "name": "Makale",
+    "behavior": "create",
+    "path": "00 Inbox",
+    "context": "",
+    "triggers": [
+      "schema:@Article",
+      "schema:@NewsArticle",
+      "schema:@BlogPosting",
+      "schema:@TechArticle"
+    ],
+    "noteNameFormat": "{{published|date:\"YYYY-MM-DD\"}} -- Makale -- {{title|safe_name:linux|slice:0,60}}",
+    "noteContentFormat": "{{highlights|map: item => item.content|join:\"\\n\\n\"|markdown|callout:(\"quote\", \"Vurgular\")}}\n\n{{content}}\n\n---\n\n## Notlar\n\n",
+    "properties": [
+      {
+        "name": "type",
+        "value": "referans",
+        "type": "text",
+        "id": "sblmakalep0"
+      },
+      {
+        "name": "date",
+        "value": "{{published|date:\"YYYY-MM-DD\"}}",
+        "type": "date",
+        "id": "sblmakalep1"
+      },
+      {
+        "name": "created",
+        "value": "{{date|date:\"YYYY-MM-DD\"}}",
+        "type": "date",
+        "id": "sblmakalep2"
+      },
+      {
+        "name": "tags",
+        "value": "kaynak, kaynak/makale",
+        "type": "multitext",
+        "id": "sblmakalep3"
+      },
+      {
+        "name": "source",
+        "value": "{{url}}",
+        "type": "text",
+        "id": "sblmakalep4"
+      },
+      {
+        "name": "source_type",
+        "value": "makale",
+        "type": "text",
+        "id": "sblmakalep5"
+      },
+      {
+        "name": "title",
+        "value": "{{title}}",
+        "type": "text",
+        "id": "sblmakalep6"
+      },
+      {
+        "name": "author",
+        "value": "{{author}}",
+        "type": "multitext",
+        "id": "sblmakalep7"
+      },
+      {
+        "name": "site",
+        "value": "{{site}}",
+        "type": "text",
+        "id": "sblmakalep8"
+      },
+      {
+        "name": "description",
+        "value": "{{description|slice:0,300}}",
+        "type": "text",
+        "id": "sblmakalep9"
+      },
+      {
+        "name": "words",
+        "value": "{{words}}",
+        "type": "number",
+        "id": "sblmakalep10"
+      }
+    ],
+    "id": "sblmakale"
+  }
+}

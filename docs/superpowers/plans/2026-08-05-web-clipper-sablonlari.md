@@ -39,6 +39,7 @@ Bu kısıtlar her görevin gereksinimlerine örtük olarak dahildir. Kaynak: `do
 | `tests/test_validate.py` | `validate.py`'nin kendi testleri |
 | `tests/test_templates.py` | Her gerçek şablonu `validate.py`'den geçiren test |
 | `obsidian-web-clipper-settings.json` | Üretilen çıktı — elle düzenlenmez |
+| `.gitignore` | `__pycache__/`, `*.pyc`, `.superpowers/` — Task 9'un `git add -A` adımı scratch dizini repoya sokmasın |
 | `README.md` | Kurulum + bakım rehberi |
 | `vault-yamalari.md` | `Meta/` dosyaları için hazırlanan, uygulanmayan yamalar |
 
@@ -220,8 +221,9 @@ def validate_template(tmpl):
     ad_bicimi = tmpl.get("noteNameFormat", "")
     if ad_bicimi.count(AYIRICI) < 2:
         hatalar.append(f"{ad}: dosya adında ' -- ' ayırıcı deseni eksik")
-    if "safe_name" in ad_bicimi and "safe_name:" not in ad_bicimi:
-        hatalar.append(f"{ad}: safe_name platform belirtmeli (safe_name:linux)")
+    for bulunan in re.findall(r"\|safe_name(:[a-z]*)?", ad_bicimi):
+        if bulunan != ":linux":
+            hatalar.append(f"{ad}: safe_name yalnızca 'safe_name:linux' olabilir")
 
     # meta: sözdizimi — {{meta:property:og:x}} veya {{meta:name:x}} olmalı
     hepsi = ad_bicimi + tmpl.get("noteContentFormat", "") + "".join(props.values())
@@ -367,7 +369,11 @@ class BuildTest(unittest.TestCase):
         self.assertEqual(len(idler), len(set(idler)))
 
     def test_template_list_ile_anahtarlar_ortusuyor(self):
-        anahtar_idler = {k[len("template_"):] for k in self.ayarlar if k.startswith("template_")}
+        anahtar_idler = {
+            k[len("template_"):]
+            for k in self.ayarlar
+            if k.startswith("template_") and k != "template_list"
+        }
         self.assertEqual(anahtar_idler, set(self.ayarlar["template_list"]))
 
     def test_olu_sayisal_anahtarlar_yok(self):

@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "0.1.0",
+  "name": "X (Twitter) Post",
+  "behavior": "create",
+  "path": "00 Inbox",
+  "context": "",
+  "triggers": [
+    "/^https:\\/\\/x\\.com\\/[A-Za-z0-9_]+\\/status\\/\\d+/",
+    "/^https:\\/\\/twitter\\.com\\/[A-Za-z0-9_]+\\/status\\/\\d+/"
+  ],
+  "noteNameFormat": "{{published|date:\"YYYY-MM-DD\"}} -- X -- {{url|split:\"/\"|slice:3,-2|first|safe_name:linux|slice:0,60}}",
+  "noteContentFormat": "![tweet]({{url}})\n\n---\n\n{{title|split:\" on X: \"|last|slice:1,-5|remove_html|trim}}\n\n---\n\n## Notlar\n\n",
+  "properties": [
+    {"name": "type", "value": "referans", "type": "text"},
+    {"name": "date", "value": "{{published|date:\"YYYY-MM-DD\"}}", "type": "date"},
+    {"name": "created", "value": "{{date|date:\"YYYY-MM-DD\"}}", "type": "date"},
+    {"name": "tags", "value": "kaynak, kaynak/x", "type": "multitext"},
+    {"name": "source", "value": "{{url}}", "type": "text"},
+    {"name": "source_type", "value": "x", "type": "text"},
+    {"name": "title", "value": "{{title|split:\" on X: \"|first}}", "type": "text"},
+    {"name": "author", "value": "{{title|split:\" on X: \"|first}}", "type": "multitext"},
+    {"name": "handle", "value": "@{{url|split:\"/\"|slice:3,-2|first}}", "type": "text"}
+  ]
+}
