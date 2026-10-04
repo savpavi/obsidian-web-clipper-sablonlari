@@ -5,7 +5,7 @@
   "path": "00 Inbox",
   "context": "",
   "triggers": [],
-  "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- Klip -- {{title|safe_name:linux|slice:0,60}}",
+  "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- Klip -- {% set clipValue = title %}{% if not clipValue %}{% set clipValue = \"Başlıksız\" %}{% endif %}{{clipValue|safe_name:linux|slice:0,60}}",
   "noteContentFormat": "{{content}}\n\n---\n\n## Notlar\n\n",
   "properties": [
     {
@@ -40,7 +40,7 @@
     },
     {
       "name": "title",
-      "value": "{{title}}",
+      "value": "{% set clipValue = title %}{% if not clipValue %}{% set clipValue = \"Başlıksız\" %}{% endif %}{{clipValue}}",
       "type": "text"
     },
     {

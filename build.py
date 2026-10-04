@@ -34,7 +34,9 @@ def build_settings(sablon_dizini=SABLON_DIZINI):
         "vaults": [VAULT_ADI],
         "general_settings": {
             "betaFeatures": False,
-            "legacyMode": False,
+            # Brave Origin → Wayland/Obsidian pano aktarımı boş dosya oluşturuyor.
+            # Bu hostta doğrulanan URI aktarımını sonraki importlarda koru.
+            "legacyMode": True,
             "openBehavior": "popup",
             "saveBehavior": "addToObsidian",
             "showMoreActionsButton": False,

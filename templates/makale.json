@@ -7,10 +7,9 @@
   "triggers": [
     "schema:@Article",
     "schema:@NewsArticle",
-    "schema:@BlogPosting",
-    "schema:@TechArticle"
+    "schema:@BlogPosting"
   ],
-  "noteNameFormat": "{{published|date:\"YYYY-MM-DD\"}} -- Makale -- {{title|safe_name:linux|slice:0,60}}",
+  "noteNameFormat": "{% set clipValue = published %}{% if not clipValue %}{% set clipValue = date %}{% endif %}{{clipValue|date:\"YYYY-MM-DD\"}} -- Makale -- {% set clipValue = title %}{% if not clipValue %}{% set clipValue = \"Başlıksız\" %}{% endif %}{{clipValue|safe_name:linux|slice:0,60}}",
   "noteContentFormat": "{{content}}\n\n---\n\n## Notlar\n\n",
   "properties": [
     {
@@ -20,7 +19,7 @@
     },
     {
       "name": "date",
-      "value": "{{published|date:\"YYYY-MM-DD\"}}",
+      "value": "{% set clipValue = published %}{% if not clipValue %}{% set clipValue = date %}{% endif %}{{clipValue|date:\"YYYY-MM-DD\"}}",
       "type": "date"
     },
     {
@@ -45,7 +44,7 @@
     },
     {
       "name": "title",
-      "value": "{{title}}",
+      "value": "{% set clipValue = title %}{% if not clipValue %}{% set clipValue = \"Başlıksız\" %}{% endif %}{{clipValue}}",
       "type": "text"
     },
     {

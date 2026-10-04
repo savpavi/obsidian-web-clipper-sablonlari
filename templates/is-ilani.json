@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "0.1.0",
+  "name": "İş İlanı",
+  "behavior": "create",
+  "path": "00 Inbox",
+  "context": "",
+  "triggers": [
+    "/^https:\\/\\/(www\\.)?linkedin\\.com\\/jobs\\/view\\/[^/?#]+\\/?(?:[?#].*)?$/",
+    "schema:@JobPosting"
+  ],
+  "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- Is Ilani -- {% set clipValue = schema:@JobPosting:title %}{% if not clipValue %}{% set clipValue = title %}{% endif %}{% if not clipValue %}{% set clipValue = \"Başlıksız ilan\" %}{% endif %}{{clipValue|safe_name:linux|slice:0,80}}",
+  "noteContentFormat": "## İlan\n\n{% if selection %}{{selection}}{% elseif schema:@JobPosting:description %}{{schema:@JobPosting:description|markdown}}{% elseif content %}{{content}}{% else %}İlan metni alınamadı. Sayfada metni seçip yeniden klipleyin.{% endif %}\n\nKaynak: {{url}}\n\n## Değerlendirme\n\n- Doğrudan eşleşen deneyim:\n- Aktarılabilir beceriler:\n- Eksikler / sorulacak sorular:\n\n## Notlar\n\n",
+  "properties": [
+    {"name": "type", "value": "referans", "type": "text"},
+    {"name": "date", "value": "{{date|date:\"YYYY-MM-DD\"}}", "type": "date"},
+    {"name": "created", "value": "{{date|date:\"YYYY-MM-DD\"}}", "type": "date"},
+    {"name": "tags", "value": "kaynak, kaynak/is-ilani, alan/is", "type": "multitext"},
+    {"name": "source", "value": "{{url}}", "type": "text"},
+    {"name": "source_type", "value": "is-ilani", "type": "text"},
+    {"name": "title", "value": "{% set clipValue = schema:@JobPosting:title %}{% if not clipValue %}{% set clipValue = title %}{% endif %}{% if not clipValue %}{% set clipValue = \"Başlıksız ilan\" %}{% endif %}{{clipValue}}", "type": "text"},
+    {"name": "author", "value": "{{author}}", "type": "multitext"},
+    {"name": "site", "value": "{{site}}", "type": "text"},
+    {"name": "description", "value": "{{description|slice:0,300}}", "type": "text"},
+    {"name": "company", "value": "{{schema:@JobPosting:hiringOrganization.name}}", "type": "text"},
+    {"name": "location", "value": "{{schema:@JobPosting:jobLocation.address.addressLocality}}{% if schema:@JobPosting:jobLocation.address.addressLocality and schema:@JobPosting:jobLocation.address.addressCountry %}, {% endif %}{{schema:@JobPosting:jobLocation.address.addressCountry}}", "type": "text"},
+    {"name": "employment_type", "value": "{{schema:@JobPosting:employmentType}}", "type": "text"},
+    {"name": "workplace_type", "value": "{{schema:@JobPosting:jobLocationType}}", "type": "text"},
+    {"name": "salary", "value": "{% if schema:@JobPosting:baseSalary.value.value %}{{schema:@JobPosting:baseSalary.value.value}} {{schema:@JobPosting:baseSalary.currency}} / {{schema:@JobPosting:baseSalary.value.unitText}}{% elseif schema:@JobPosting:baseSalary.value.minValue or schema:@JobPosting:baseSalary.value.maxValue %}{{schema:@JobPosting:baseSalary.value.minValue}} – {{schema:@JobPosting:baseSalary.value.maxValue}} {{schema:@JobPosting:baseSalary.currency}} / {{schema:@JobPosting:baseSalary.value.unitText}}{% endif %}", "type": "text"},
+    {"name": "deadline", "value": "{% if schema:@JobPosting:validThrough %}{{schema:@JobPosting:validThrough|date:\"YYYY-MM-DD\"}}{% endif %}", "type": "date"}
+  ]
+}

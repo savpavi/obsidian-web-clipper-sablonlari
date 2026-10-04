@@ -9,6 +9,8 @@
     "sblreddit",
     "sblinstagram",
     "sbllinkedin",
+    "sblisilani",
+    "sblteknikdokumantasyon",
     "sblurun",
     "sblmakale"
   ],
@@ -17,7 +19,7 @@
   ],
   "general_settings": {
     "betaFeatures": false,
-    "legacyMode": false,
+    "legacyMode": true,
     "openBehavior": "popup",
     "saveBehavior": "addToObsidian",
     "showMoreActionsButton": false,
@@ -70,6 +72,11 @@
       "defaultValue": ""
     },
     {
+      "name": "company",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
       "name": "created",
       "type": "date",
       "defaultValue": ""
@@ -85,12 +92,22 @@
       "defaultValue": ""
     },
     {
+      "name": "deadline",
+      "type": "date",
+      "defaultValue": ""
+    },
+    {
       "name": "description",
       "type": "text",
       "defaultValue": ""
     },
     {
       "name": "duration",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
+      "name": "employment_type",
       "type": "text",
       "defaultValue": ""
     },
@@ -110,7 +127,17 @@
       "defaultValue": ""
     },
     {
+      "name": "location",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
       "name": "moc",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
+      "name": "post_id",
       "type": "text",
       "defaultValue": ""
     },
@@ -126,6 +153,11 @@
     },
     {
       "name": "repo",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
+      "name": "salary",
       "type": "text",
       "defaultValue": ""
     },
@@ -188,6 +220,11 @@
       "name": "words",
       "type": "number",
       "defaultValue": ""
+    },
+    {
+      "name": "workplace_type",
+      "type": "text",
+      "defaultValue": ""
     }
   ],
   "stats": {
@@ -204,7 +241,7 @@
     "path": "00 Inbox",
     "context": "",
     "triggers": [],
-    "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- Klip -- {{title|safe_name:linux|slice:0,60}}",
+    "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- Klip -- {% set clipValue = title %}{% if not clipValue %}{% set clipValue = \"Başlıksız\" %}{% endif %}{{clipValue|safe_name:linux|slice:0,60}}",
     "noteContentFormat": "{{content}}\n\n---\n\n## Notlar\n\n",
     "properties": [
       {
@@ -245,7 +282,7 @@
       },
       {
         "name": "title",
-        "value": "{{title}}",
+        "value": "{% set clipValue = title %}{% if not clipValue %}{% set clipValue = \"Başlıksız\" %}{% endif %}{{clipValue}}",
         "type": "text",
         "id": "sblvarsayilanp6"
       },
@@ -279,7 +316,7 @@
     "triggers": [
       "/^https:\\/\\/(www\\.)?eksisozluk\\.com\\/entry\\/\\d+/"
     ],
-    "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- Eksi Entry -- {{title|split:\" - ekşi sözlük\"|first|safe_name:linux|slice:0,60}}",
+    "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- Eksi Entry -- {% set clipValue = title|split:\" - ekşi sözlük\"|first %}{% if not clipValue %}{% set clipValue = title %}{% endif %}{% if not clipValue %}{% set clipValue = \"Başlıksız\" %}{% endif %}{{clipValue|safe_name:linux|slice:0,60}} -- {{url|split:\"/entry/\"|last|split:\"/\"|first|split:\"?\"|first|split:\"#\"|first}}",
     "noteContentFormat": "> **{{title|split:\" - ekşi sözlük\"|first}}** · {{selector:a.entry-author|first}}\n\n{{selectorHtml:#entry-item-list li div.content|first|markdown|blockquote}}\n\n---\n\n## Notlar\n\n",
     "properties": [
       {
@@ -320,7 +357,7 @@
       },
       {
         "name": "title",
-        "value": "{{title|split:\" - ekşi sözlük\"|first}}",
+        "value": "{% set clipValue = title|split:\" - ekşi sözlük\"|first %}{% if not clipValue %}{% set clipValue = title %}{% endif %}{% if not clipValue %}{% set clipValue = \"Başlıksız\" %}{% endif %}{{clipValue}}",
         "type": "text",
         "id": "sbleksientryp6"
       },
@@ -338,7 +375,7 @@
       },
       {
         "name": "entry_id",
-        "value": "{{url|split:\"/entry/\"|last}}",
+        "value": "{{url|split:\"/entry/\"|last|split:\"/\"|first|split:\"?\"|first|split:\"#\"|first}}",
         "type": "text",
         "id": "sbleksientryp9"
       },
@@ -360,7 +397,7 @@
     "triggers": [
       "/^https:\\/\\/(www\\.)?eksisozluk\\.com\\/[^\\/?]+--\\d+/"
     ],
-    "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- Eksi Klip -- {{title|split:\" - ekşi sözlük\"|first|safe_name:linux|slice:0,60}}",
+    "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- Eksi Klip -- {% set clipValue = title|split:\" - ekşi sözlük\"|first %}{% if not clipValue %}{% set clipValue = title %}{% endif %}{% if not clipValue %}{% set clipValue = \"Başlıksız\" %}{% endif %}{{clipValue|safe_name:linux|slice:0,60}}",
     "noteContentFormat": "> **{{title|split:\" - ekşi sözlük\"|first}}** · sayfa klibi · {{date|date:\"YYYY-MM-DD\"}}\n\n---\n\n{{selectorHtml:#entry-item-list li div.content|join:\"\\n\\n···\\n\\n\"|markdown|trim}}\n\n---\n\n## Notlar\n\n",
     "properties": [
       {
@@ -401,7 +438,7 @@
       },
       {
         "name": "title",
-        "value": "{{title|split:\" - ekşi sözlük\"|first}}",
+        "value": "{% set clipValue = title|split:\" - ekşi sözlük\"|first %}{% if not clipValue %}{% set clipValue = title %}{% endif %}{% if not clipValue %}{% set clipValue = \"Başlıksız\" %}{% endif %}{{clipValue}}",
         "type": "text",
         "id": "sbleksiklipp6"
       },
@@ -444,7 +481,7 @@
       "https://m.youtube.com/watch",
       "https://youtu.be/"
     ],
-    "noteNameFormat": "{{schema:@VideoObject:uploadDate|date:\"YYYY-MM-DD\"}} -- YouTube -- {{schema:@VideoObject:name|safe_name:linux|slice:0,60}}",
+    "noteNameFormat": "{% set clipValue = schema:@VideoObject:uploadDate %}{% if not clipValue %}{% set clipValue = date %}{% endif %}{{clipValue|date:\"YYYY-MM-DD\"}} -- YouTube -- {% set clipValue = schema:@VideoObject:name %}{% if not clipValue %}{% set clipValue = title %}{% endif %}{% if not clipValue %}{% set clipValue = \"Başlıksız\" %}{% endif %}{{clipValue|safe_name:linux|slice:0,60}}",
     "noteContentFormat": "![video]({{url}})\n\n---\n\n## Açıklama\n\n{{schema:@VideoObject:description|slice:0,2000|trim}}\n\n---\n\n## Notlar\n\n",
     "properties": [
       {
@@ -455,7 +492,7 @@
       },
       {
         "name": "date",
-        "value": "{{schema:@VideoObject:uploadDate|date:\"YYYY-MM-DD\"}}",
+        "value": "{% set clipValue = schema:@VideoObject:uploadDate %}{% if not clipValue %}{% set clipValue = date %}{% endif %}{{clipValue|date:\"YYYY-MM-DD\"}}",
         "type": "date",
         "id": "sblyoutubep1"
       },
@@ -485,7 +522,7 @@
       },
       {
         "name": "title",
-        "value": "{{schema:@VideoObject:name}}",
+        "value": "{% set clipValue = schema:@VideoObject:name %}{% if not clipValue %}{% set clipValue = title %}{% endif %}{% if not clipValue %}{% set clipValue = \"Başlıksız\" %}{% endif %}{{clipValue}}",
         "type": "text",
         "id": "sblyoutubep6"
       },
@@ -517,10 +554,10 @@
     "path": "00 Inbox",
     "context": "",
     "triggers": [
-      "/^https:\\/\\/github\\.com\\/[\\w.-]+\\/[\\w.-]+\\/?$/"
+      "/^https:\\/\\/github\\.com\\/[\\w.-]+\\/[\\w.-]+\\/?(?:[?#].*)?$/"
     ],
-    "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- GitHub -- {{url|split:\"github.com/\"|last|replace:\"/\":\"-\"|safe_name:linux|slice:0,60}}",
-    "noteContentFormat": "> {{meta:property:og:description|slice:0,300}}\n\n---\n\n{{content}}\n\n---\n\n## Notlar\n\n",
+    "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- GitHub -- {{url|split:\"github.com/\"|last|split:\"?\"|first|split:\"#\"|first|replace:\"/\\/$/\":\"\"|replace:\"/\":\"-\"|safe_name:linux|slice:0,60}}",
+    "noteContentFormat": "{% if description %}> {{description}}\n\n{% endif %}{{content}}\n\n---\n\n## Notlar\n\n",
     "properties": [
       {
         "name": "type",
@@ -560,13 +597,13 @@
       },
       {
         "name": "title",
-        "value": "{{title|split:\" · GitHub\"|first|split:\"GitHub - \"|last|split:\":\"|first}}",
+        "value": "{% set clipValue = title|split:\" · GitHub\"|first|split:\"GitHub - \"|last|split:\":\"|first %}{% if not clipValue %}{% set clipValue = title %}{% endif %}{% if not clipValue %}{% set clipValue = \"Başlıksız\" %}{% endif %}{{clipValue}}",
         "type": "text",
         "id": "sblgithubp6"
       },
       {
         "name": "repo",
-        "value": "{{url|split:\"github.com/\"|last}}",
+        "value": "{{url|split:\"github.com/\"|last|split:\"?\"|first|split:\"#\"|first|replace:\"/\\/$/\":\"\"}}",
         "type": "text",
         "id": "sblgithubp7"
       },
@@ -595,7 +632,7 @@
       "/^https:\\/\\/x\\.com\\/[A-Za-z0-9_]+\\/status\\/\\d+/",
       "/^https:\\/\\/twitter\\.com\\/[A-Za-z0-9_]+\\/status\\/\\d+/"
     ],
-    "noteNameFormat": "{{published|date:\"YYYY-MM-DD\"}} -- X -- {{url|split:\"/\"|slice:3,-2|first|safe_name:linux|slice:0,60}}",
+    "noteNameFormat": "{% set clipValue = published %}{% if not clipValue %}{% set clipValue = date %}{% endif %}{{clipValue|date:\"YYYY-MM-DD\"}} -- X -- {{url|split:\"/\"|slice:3,4|first}} -- {{url|split:\"/status/\"|last|split:\"/\"|first|split:\"?\"|first|split:\"#\"|first}}",
     "noteContentFormat": "![tweet]({{url}})\n\n---\n\n{{selectorHtml:div[data-testid=\"tweetText\"]|first|markdown|trim}}\n\n---\n\n## Notlar\n\n",
     "properties": [
       {
@@ -606,7 +643,7 @@
       },
       {
         "name": "date",
-        "value": "{{published|date:\"YYYY-MM-DD\"}}",
+        "value": "{% set clipValue = published %}{% if not clipValue %}{% set clipValue = date %}{% endif %}{{clipValue|date:\"YYYY-MM-DD\"}}",
         "type": "date",
         "id": "sblxp1"
       },
@@ -636,21 +673,27 @@
       },
       {
         "name": "title",
-        "value": "{{selector:div[data-testid=\"tweetText\"]|first|remove_html|trim|slice:0,100}}",
+        "value": "{% set clipValue = selector:div[data-testid=\"tweetText\"]|first|remove_html|trim|slice:0,100 %}{% if not clipValue %}{% set clipValue = title %}{% endif %}{% if not clipValue %}{% set clipValue = \"Başlıksız\" %}{% endif %}{{clipValue}}",
         "type": "text",
         "id": "sblxp6"
       },
       {
         "name": "author",
-        "value": "{{url|split:\"/\"|slice:3,-2|first}}",
+        "value": "{{url|split:\"/\"|slice:3,4|first}}",
         "type": "multitext",
         "id": "sblxp7"
       },
       {
         "name": "handle",
-        "value": "@{{url|split:\"/\"|slice:3,-2|first}}",
+        "value": "@{{url|split:\"/\"|slice:3,4|first}}",
         "type": "text",
         "id": "sblxp8"
+      },
+      {
+        "name": "post_id",
+        "value": "{{url|split:\"/status/\"|last|split:\"/\"|first|split:\"?\"|first|split:\"#\"|first}}",
+        "type": "text",
+        "id": "sblxp9"
       }
     ],
     "id": "sblx"
@@ -664,8 +707,8 @@
     "triggers": [
       "/^https:\\/\\/(www\\.|old\\.|sh\\.)?reddit\\.com\\/r\\/\\w+\\/comments\\//"
     ],
-    "noteNameFormat": "{{selector:shreddit-post?created-timestamp|date:\"YYYY-MM-DD\"}} -- Reddit -- {{selector:shreddit-post?post-title|safe_name:linux|slice:0,60}}",
-    "noteContentFormat": "> **{{selector:shreddit-post?subreddit-prefixed-name}}** · u/{{selector:shreddit-post?author}} · ⬆️ {{selector:shreddit-post?score}}\n\n---\n\n{{selectorHtml:shreddit-post div[slot=\"text-body\"]|markdown|trim}}\n\n---\n\n### İlk Yorum\n\n**{{selector:shreddit-comment?author|first}}**\n\n{{selectorHtml:shreddit-comment div[slot=\"comment\"]|first|markdown|blockquote}}\n\n---\n\n## Notlar\n\n",
+    "noteNameFormat": "{% set clipValue = selector:shreddit-post?created-timestamp %}{% if not clipValue %}{% set clipValue = date %}{% endif %}{{clipValue|date:\"YYYY-MM-DD\"}} -- Reddit -- {% set clipValue = selector:shreddit-post?post-title %}{% if not clipValue %}{% set clipValue = title %}{% endif %}{% if not clipValue %}{% set clipValue = \"Başlıksız\" %}{% endif %}{{clipValue|safe_name:linux|slice:0,60}}",
+    "noteContentFormat": "{% set clipValue = selectorHtml:shreddit-post div[slot=\"text-body\"] %}{% if not clipValue %}{% set clipValue = selection %}{% endif %}{% if not clipValue %}{% set clipValue = content %}{% endif %}{{clipValue|markdown|trim}}\n\n{% if selector:shreddit-comment %}### İlk Yorum\n\n**{{selector:shreddit-comment?author|first}}**\n\n{{selectorHtml:shreddit-comment div[slot=\"comment\"]|first|markdown|blockquote}}\n\n{% endif %}---\n\n## Notlar\n\n",
     "properties": [
       {
         "name": "type",
@@ -675,7 +718,7 @@
       },
       {
         "name": "date",
-        "value": "{{selector:shreddit-post?created-timestamp|date:\"YYYY-MM-DD\"}}",
+        "value": "{% set clipValue = selector:shreddit-post?created-timestamp %}{% if not clipValue %}{% set clipValue = date %}{% endif %}{{clipValue|date:\"YYYY-MM-DD\"}}",
         "type": "date",
         "id": "sblredditp1"
       },
@@ -705,7 +748,7 @@
       },
       {
         "name": "title",
-        "value": "{{selector:shreddit-post?post-title|trim}}",
+        "value": "{% set clipValue = selector:shreddit-post?post-title|trim %}{% if not clipValue %}{% set clipValue = title %}{% endif %}{% if not clipValue %}{% set clipValue = \"Başlıksız\" %}{% endif %}{{clipValue}}",
         "type": "text",
         "id": "sblredditp6"
       },
@@ -739,8 +782,8 @@
     "triggers": [
       "/^https:\\/\\/(www\\.)?instagram\\.com\\/(p|reel)\\//"
     ],
-    "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- Instagram -- {{meta:property:og:title|split:\" on Instagram\"|first|safe_name:linux|slice:0,40}}",
-    "noteContentFormat": "{{image|image:\"kapak\"}}\n\n---\n\n{{meta:property:og:description|trim}}\n\n---\n\n## Notlar\n\n",
+    "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- Instagram -- {% set clipValue = meta:property:og:title|split:\" on Instagram\"|first %}{% if not clipValue %}{% set clipValue = title %}{% endif %}{% if not clipValue %}{% set clipValue = \"Başlıksız\" %}{% endif %}{{clipValue|safe_name:linux|slice:0,40}}",
+    "noteContentFormat": "{% if image %}{{image|image:\"kapak\"}}\n\n{% endif %}{% if selection %}{{selection}}{% elseif meta:property:og:description %}{{meta:property:og:description|trim}}{% else %}Gönderi metni alınamadı. Sayfada metni seçip yeniden klipleyin.{% endif %}\n\nKaynak: {{url}}\n\n---\n\n## Notlar\n\n",
     "properties": [
       {
         "name": "type",
@@ -780,7 +823,7 @@
       },
       {
         "name": "title",
-        "value": "{{meta:property:og:title|split:\" on Instagram\"|first}}",
+        "value": "{% set clipValue = meta:property:og:title|split:\" on Instagram\"|first %}{% if not clipValue %}{% set clipValue = title %}{% endif %}{% if not clipValue %}{% set clipValue = \"Başlıksız\" %}{% endif %}{{clipValue}}",
         "type": "text",
         "id": "sblinstagramp6"
       },
@@ -809,8 +852,8 @@
       "/^https:\\/\\/(www\\.)?linkedin\\.com\\/posts\\//",
       "/^https:\\/\\/(www\\.)?linkedin\\.com\\/feed\\/update\\//"
     ],
-    "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- LinkedIn -- {{meta:property:og:title|split:\" on LinkedIn\"|first|safe_name:linux|slice:0,40}}",
-    "noteContentFormat": "{{content}}\n\n---\n\n## Notlar\n\n",
+    "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- LinkedIn -- {% set clipValue = meta:property:og:title|split:\" on LinkedIn\"|first %}{% if not clipValue %}{% set clipValue = title %}{% endif %}{% if not clipValue %}{% set clipValue = \"Başlıksız\" %}{% endif %}{{clipValue|safe_name:linux|slice:0,40}}",
+    "noteContentFormat": "{% if selection %}{{selection}}{% elseif meta:property:og:description %}{{meta:property:og:description|trim}}{% else %}Gönderi metni alınamadı. Sayfada metni seçip yeniden klipleyin.{% endif %}\n\nKaynak: {{url}}\n\n---\n\n## Notlar\n\n",
     "properties": [
       {
         "name": "type",
@@ -850,7 +893,7 @@
       },
       {
         "name": "title",
-        "value": "{{meta:property:og:title|split:\" on LinkedIn\"|first}}",
+        "value": "{% set clipValue = meta:property:og:title|split:\" on LinkedIn\"|first %}{% if not clipValue %}{% set clipValue = title %}{% endif %}{% if not clipValue %}{% set clipValue = \"Başlıksız\" %}{% endif %}{{clipValue}}",
         "type": "text",
         "id": "sbllinkedinp6"
       },
@@ -869,6 +912,197 @@
     ],
     "id": "sbllinkedin"
   },
+  "template_sblisilani": {
+    "schemaVersion": "0.1.0",
+    "name": "İş İlanı",
+    "behavior": "create",
+    "path": "00 Inbox",
+    "context": "",
+    "triggers": [
+      "/^https:\\/\\/(www\\.)?linkedin\\.com\\/jobs\\/view\\/[^/?#]+\\/?(?:[?#].*)?$/",
+      "schema:@JobPosting"
+    ],
+    "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- Is Ilani -- {% set clipValue = schema:@JobPosting:title %}{% if not clipValue %}{% set clipValue = title %}{% endif %}{% if not clipValue %}{% set clipValue = \"Başlıksız ilan\" %}{% endif %}{{clipValue|safe_name:linux|slice:0,80}}",
+    "noteContentFormat": "## İlan\n\n{% if selection %}{{selection}}{% elseif schema:@JobPosting:description %}{{schema:@JobPosting:description|markdown}}{% elseif content %}{{content}}{% else %}İlan metni alınamadı. Sayfada metni seçip yeniden klipleyin.{% endif %}\n\nKaynak: {{url}}\n\n## Değerlendirme\n\n- Doğrudan eşleşen deneyim:\n- Aktarılabilir beceriler:\n- Eksikler / sorulacak sorular:\n\n## Notlar\n\n",
+    "properties": [
+      {
+        "name": "type",
+        "value": "referans",
+        "type": "text",
+        "id": "sblisilanip0"
+      },
+      {
+        "name": "date",
+        "value": "{{date|date:\"YYYY-MM-DD\"}}",
+        "type": "date",
+        "id": "sblisilanip1"
+      },
+      {
+        "name": "created",
+        "value": "{{date|date:\"YYYY-MM-DD\"}}",
+        "type": "date",
+        "id": "sblisilanip2"
+      },
+      {
+        "name": "tags",
+        "value": "kaynak, kaynak/is-ilani, alan/is",
+        "type": "multitext",
+        "id": "sblisilanip3"
+      },
+      {
+        "name": "source",
+        "value": "{{url}}",
+        "type": "text",
+        "id": "sblisilanip4"
+      },
+      {
+        "name": "source_type",
+        "value": "is-ilani",
+        "type": "text",
+        "id": "sblisilanip5"
+      },
+      {
+        "name": "title",
+        "value": "{% set clipValue = schema:@JobPosting:title %}{% if not clipValue %}{% set clipValue = title %}{% endif %}{% if not clipValue %}{% set clipValue = \"Başlıksız ilan\" %}{% endif %}{{clipValue}}",
+        "type": "text",
+        "id": "sblisilanip6"
+      },
+      {
+        "name": "author",
+        "value": "{{author}}",
+        "type": "multitext",
+        "id": "sblisilanip7"
+      },
+      {
+        "name": "site",
+        "value": "{{site}}",
+        "type": "text",
+        "id": "sblisilanip8"
+      },
+      {
+        "name": "description",
+        "value": "{{description|slice:0,300}}",
+        "type": "text",
+        "id": "sblisilanip9"
+      },
+      {
+        "name": "company",
+        "value": "{{schema:@JobPosting:hiringOrganization.name}}",
+        "type": "text",
+        "id": "sblisilanip10"
+      },
+      {
+        "name": "location",
+        "value": "{{schema:@JobPosting:jobLocation.address.addressLocality}}{% if schema:@JobPosting:jobLocation.address.addressLocality and schema:@JobPosting:jobLocation.address.addressCountry %}, {% endif %}{{schema:@JobPosting:jobLocation.address.addressCountry}}",
+        "type": "text",
+        "id": "sblisilanip11"
+      },
+      {
+        "name": "employment_type",
+        "value": "{{schema:@JobPosting:employmentType}}",
+        "type": "text",
+        "id": "sblisilanip12"
+      },
+      {
+        "name": "workplace_type",
+        "value": "{{schema:@JobPosting:jobLocationType}}",
+        "type": "text",
+        "id": "sblisilanip13"
+      },
+      {
+        "name": "salary",
+        "value": "{% if schema:@JobPosting:baseSalary.value.value %}{{schema:@JobPosting:baseSalary.value.value}} {{schema:@JobPosting:baseSalary.currency}} / {{schema:@JobPosting:baseSalary.value.unitText}}{% elseif schema:@JobPosting:baseSalary.value.minValue or schema:@JobPosting:baseSalary.value.maxValue %}{{schema:@JobPosting:baseSalary.value.minValue}} – {{schema:@JobPosting:baseSalary.value.maxValue}} {{schema:@JobPosting:baseSalary.currency}} / {{schema:@JobPosting:baseSalary.value.unitText}}{% endif %}",
+        "type": "text",
+        "id": "sblisilanip14"
+      },
+      {
+        "name": "deadline",
+        "value": "{% if schema:@JobPosting:validThrough %}{{schema:@JobPosting:validThrough|date:\"YYYY-MM-DD\"}}{% endif %}",
+        "type": "date",
+        "id": "sblisilanip15"
+      }
+    ],
+    "id": "sblisilani"
+  },
+  "template_sblteknikdokumantasyon": {
+    "schemaVersion": "0.1.0",
+    "name": "Teknik Dokümantasyon",
+    "behavior": "create",
+    "path": "00 Inbox",
+    "context": "",
+    "triggers": [
+      "/^https:\\/\\/github\\.com\\/[\\w.-]+\\/[\\w.-]+\\/(issues|pull)\\/\\d+\\/?(?:[?#].*)?$/",
+      "/^https:\\/\\/(help\\.obsidian\\.md|docs\\.python\\.org|developer\\.mozilla\\.org|wiki\\.archlinux\\.org)\\//",
+      "/^https:\\/\\/obsidian\\.md\\/help\\//",
+      "schema:@TechArticle",
+      "schema:@APIReference"
+    ],
+    "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- Teknik -- {% set clipValue = title %}{% if not clipValue %}{% set clipValue = \"Başlıksız doküman\" %}{% endif %}{{clipValue|safe_name:linux|slice:0,80}}",
+    "noteContentFormat": "{{content}}\n\nKaynak: {{url}}\n\n## Uygulama\n\n- Çözülen sorun / amaç:\n- Ortam ve sürüm:\n- Sonuç / doğrulama:\n\n## Notlar\n\n",
+    "properties": [
+      {
+        "name": "type",
+        "value": "referans",
+        "type": "text",
+        "id": "sblteknikdokumantasyonp0"
+      },
+      {
+        "name": "date",
+        "value": "{{date|date:\"YYYY-MM-DD\"}}",
+        "type": "date",
+        "id": "sblteknikdokumantasyonp1"
+      },
+      {
+        "name": "created",
+        "value": "{{date|date:\"YYYY-MM-DD\"}}",
+        "type": "date",
+        "id": "sblteknikdokumantasyonp2"
+      },
+      {
+        "name": "tags",
+        "value": "kaynak, kaynak/dokumantasyon, alan/teknik",
+        "type": "multitext",
+        "id": "sblteknikdokumantasyonp3"
+      },
+      {
+        "name": "source",
+        "value": "{{url}}",
+        "type": "text",
+        "id": "sblteknikdokumantasyonp4"
+      },
+      {
+        "name": "source_type",
+        "value": "teknik-dokumantasyon",
+        "type": "text",
+        "id": "sblteknikdokumantasyonp5"
+      },
+      {
+        "name": "title",
+        "value": "{% set clipValue = title %}{% if not clipValue %}{% set clipValue = \"Başlıksız\" %}{% endif %}{{clipValue}}",
+        "type": "text",
+        "id": "sblteknikdokumantasyonp6"
+      },
+      {
+        "name": "author",
+        "value": "{{author}}",
+        "type": "multitext",
+        "id": "sblteknikdokumantasyonp7"
+      },
+      {
+        "name": "site",
+        "value": "{{site}}",
+        "type": "text",
+        "id": "sblteknikdokumantasyonp8"
+      },
+      {
+        "name": "description",
+        "value": "{{description|slice:0,300}}",
+        "type": "text",
+        "id": "sblteknikdokumantasyonp9"
+      }
+    ],
+    "id": "sblteknikdokumantasyon"
+  },
   "template_sblurun": {
     "schemaVersion": "0.1.0",
     "name": "Ürün",
@@ -878,8 +1112,8 @@
     "triggers": [
       "schema:@Product"
     ],
-    "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- Urun -- {{schema:@Product:name|safe_name:linux|slice:0,60}}",
-    "noteContentFormat": "{{schema:@Product:image.contentUrl|first|image:\"ürün\"}}\n\n---\n\n## Detaylar\n\n| | |\n|---|---|\n| **Fiyat** | {{schema:@Product:offers.price}} {{schema:@Product:offers.priceCurrency}} |\n| **Mağaza** | {{site}} |\n| **Marka** | {{schema:@Product:brand.name}} |\n| **Durum** | {{schema:@Product:offers.availability|replace:\"https://schema.org/\":\"\"}} |\n| **Puan** | {{schema:@Product:aggregateRating.ratingValue}}/5 ({{schema:@Product:aggregateRating.reviewCount}} değerlendirme) |\n\n## Açıklama\n\n{{schema:@Product:description|slice:0,1000|trim}}\n\n---\n\n## Notlar\n\n",
+    "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- Urun -- {% set clipValue = schema:@Product:name %}{% if not clipValue %}{% set clipValue = title %}{% endif %}{% if not clipValue %}{% set clipValue = \"Başlıksız\" %}{% endif %}{{clipValue|safe_name:linux|slice:0,60}}",
+    "noteContentFormat": "{% if schema:@Product:image.contentUrl %}{{schema:@Product:image.contentUrl|first|image:\"ürün\"}}\n\n{% elseif image %}{{image|image:\"ürün\"}}\n\n{% endif %}## Detaylar\n\n{% if schema:@Product:offers.price %}**Fiyat:** {{schema:@Product:offers.price}}\n\n{% endif %}{% if schema:@Product:offers.priceCurrency %}**Para birimi:** {{schema:@Product:offers.priceCurrency}}\n\n{% endif %}{% if site %}**Mağaza:** {{site}}\n\n{% endif %}{% if schema:@Product:brand.name %}**Marka:** {{schema:@Product:brand.name}}\n\n{% endif %}{% if schema:@Product:offers.availability %}**Durum:** {{schema:@Product:offers.availability}}\n\n{% endif %}{% if schema:@Product:aggregateRating.ratingValue %}**Puan:** {{schema:@Product:aggregateRating.ratingValue}}\n\n{% endif %}{% if schema:@Product:description %}## Açıklama\n\n{{schema:@Product:description|markdown|trim}}\n\n{% endif %}---\n\n## Notlar\n\n",
     "properties": [
       {
         "name": "type",
@@ -919,7 +1153,7 @@
       },
       {
         "name": "title",
-        "value": "{{schema:@Product:name}}",
+        "value": "{% set clipValue = schema:@Product:name %}{% if not clipValue %}{% set clipValue = title %}{% endif %}{% if not clipValue %}{% set clipValue = \"Başlıksız\" %}{% endif %}{{clipValue}}",
         "type": "text",
         "id": "sblurunp6"
       },
@@ -977,10 +1211,9 @@
     "triggers": [
       "schema:@Article",
       "schema:@NewsArticle",
-      "schema:@BlogPosting",
-      "schema:@TechArticle"
+      "schema:@BlogPosting"
     ],
-    "noteNameFormat": "{{published|date:\"YYYY-MM-DD\"}} -- Makale -- {{title|safe_name:linux|slice:0,60}}",
+    "noteNameFormat": "{% set clipValue = published %}{% if not clipValue %}{% set clipValue = date %}{% endif %}{{clipValue|date:\"YYYY-MM-DD\"}} -- Makale -- {% set clipValue = title %}{% if not clipValue %}{% set clipValue = \"Başlıksız\" %}{% endif %}{{clipValue|safe_name:linux|slice:0,60}}",
     "noteContentFormat": "{{content}}\n\n---\n\n## Notlar\n\n",
     "properties": [
       {
@@ -991,7 +1224,7 @@
       },
       {
         "name": "date",
-        "value": "{{published|date:\"YYYY-MM-DD\"}}",
+        "value": "{% set clipValue = published %}{% if not clipValue %}{% set clipValue = date %}{% endif %}{{clipValue|date:\"YYYY-MM-DD\"}}",
         "type": "date",
         "id": "sblmakalep1"
       },
@@ -1021,7 +1254,7 @@
       },
       {
         "name": "title",
-        "value": "{{title}}",
+        "value": "{% set clipValue = title %}{% if not clipValue %}{% set clipValue = \"Başlıksız\" %}{% endif %}{{clipValue}}",
         "type": "text",
         "id": "sblmakalep6"
       },

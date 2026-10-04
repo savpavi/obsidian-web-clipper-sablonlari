@@ -8,17 +8,18 @@
     "/^https:\\/\\/x\\.com\\/[A-Za-z0-9_]+\\/status\\/\\d+/",
     "/^https:\\/\\/twitter\\.com\\/[A-Za-z0-9_]+\\/status\\/\\d+/"
   ],
-  "noteNameFormat": "{{published|date:\"YYYY-MM-DD\"}} -- X -- {{url|split:\"/\"|slice:3,-2|first|safe_name:linux|slice:0,60}}",
+  "noteNameFormat": "{% set clipValue = published %}{% if not clipValue %}{% set clipValue = date %}{% endif %}{{clipValue|date:\"YYYY-MM-DD\"}} -- X -- {{url|split:\"/\"|slice:3,4|first}} -- {{url|split:\"/status/\"|last|split:\"/\"|first|split:\"?\"|first|split:\"#\"|first}}",
   "noteContentFormat": "![tweet]({{url}})\n\n---\n\n{{selectorHtml:div[data-testid=\"tweetText\"]|first|markdown|trim}}\n\n---\n\n## Notlar\n\n",
   "properties": [
     {"name": "type", "value": "referans", "type": "text"},
-    {"name": "date", "value": "{{published|date:\"YYYY-MM-DD\"}}", "type": "date"},
+    {"name": "date", "value": "{% set clipValue = published %}{% if not clipValue %}{% set clipValue = date %}{% endif %}{{clipValue|date:\"YYYY-MM-DD\"}}", "type": "date"},
     {"name": "created", "value": "{{date|date:\"YYYY-MM-DD\"}}", "type": "date"},
     {"name": "tags", "value": "kaynak, kaynak/x", "type": "multitext"},
     {"name": "source", "value": "{{url}}", "type": "text"},
     {"name": "source_type", "value": "x", "type": "text"},
-    {"name": "title", "value": "{{selector:div[data-testid=\"tweetText\"]|first|remove_html|trim|slice:0,100}}", "type": "text"},
-    {"name": "author", "value": "{{url|split:\"/\"|slice:3,-2|first}}", "type": "multitext"},
-    {"name": "handle", "value": "@{{url|split:\"/\"|slice:3,-2|first}}", "type": "text"}
+    {"name": "title", "value": "{% set clipValue = selector:div[data-testid=\"tweetText\"]|first|remove_html|trim|slice:0,100 %}{% if not clipValue %}{% set clipValue = title %}{% endif %}{% if not clipValue %}{% set clipValue = \"Başlıksız\" %}{% endif %}{{clipValue}}", "type": "text"},
+    {"name": "author", "value": "{{url|split:\"/\"|slice:3,4|first}}", "type": "multitext"},
+    {"name": "handle", "value": "@{{url|split:\"/\"|slice:3,4|first}}", "type": "text"},
+    {"name": "post_id", "value": "{{url|split:\"/status/\"|last|split:\"/\"|first|split:\"?\"|first|split:\"#\"|first}}", "type": "text"}
   ]
 }

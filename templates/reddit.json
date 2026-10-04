@@ -4,17 +4,19 @@
   "behavior": "create",
   "path": "00 Inbox",
   "context": "",
-  "triggers": ["/^https:\\/\\/(www\\.|old\\.|sh\\.)?reddit\\.com\\/r\\/\\w+\\/comments\\//"],
-  "noteNameFormat": "{{selector:shreddit-post?created-timestamp|date:\"YYYY-MM-DD\"}} -- Reddit -- {{selector:shreddit-post?post-title|safe_name:linux|slice:0,60}}",
-  "noteContentFormat": "> **{{selector:shreddit-post?subreddit-prefixed-name}}** · u/{{selector:shreddit-post?author}} · ⬆️ {{selector:shreddit-post?score}}\n\n---\n\n{{selectorHtml:shreddit-post div[slot=\"text-body\"]|markdown|trim}}\n\n---\n\n### İlk Yorum\n\n**{{selector:shreddit-comment?author|first}}**\n\n{{selectorHtml:shreddit-comment div[slot=\"comment\"]|first|markdown|blockquote}}\n\n---\n\n## Notlar\n\n",
+  "triggers": [
+    "/^https:\\/\\/(www\\.|old\\.|sh\\.)?reddit\\.com\\/r\\/\\w+\\/comments\\//"
+  ],
+  "noteNameFormat": "{% set clipValue = selector:shreddit-post?created-timestamp %}{% if not clipValue %}{% set clipValue = date %}{% endif %}{{clipValue|date:\"YYYY-MM-DD\"}} -- Reddit -- {% set clipValue = selector:shreddit-post?post-title %}{% if not clipValue %}{% set clipValue = title %}{% endif %}{% if not clipValue %}{% set clipValue = \"Başlıksız\" %}{% endif %}{{clipValue|safe_name:linux|slice:0,60}}",
+  "noteContentFormat": "{% set clipValue = selectorHtml:shreddit-post div[slot=\"text-body\"] %}{% if not clipValue %}{% set clipValue = selection %}{% endif %}{% if not clipValue %}{% set clipValue = content %}{% endif %}{{clipValue|markdown|trim}}\n\n{% if selector:shreddit-comment %}### İlk Yorum\n\n**{{selector:shreddit-comment?author|first}}**\n\n{{selectorHtml:shreddit-comment div[slot=\"comment\"]|first|markdown|blockquote}}\n\n{% endif %}---\n\n## Notlar\n\n",
   "properties": [
     {"name": "type", "value": "referans", "type": "text"},
-    {"name": "date", "value": "{{selector:shreddit-post?created-timestamp|date:\"YYYY-MM-DD\"}}", "type": "date"},
+    {"name": "date", "value": "{% set clipValue = selector:shreddit-post?created-timestamp %}{% if not clipValue %}{% set clipValue = date %}{% endif %}{{clipValue|date:\"YYYY-MM-DD\"}}", "type": "date"},
     {"name": "created", "value": "{{date|date:\"YYYY-MM-DD\"}}", "type": "date"},
     {"name": "tags", "value": "kaynak, kaynak/reddit", "type": "multitext"},
     {"name": "source", "value": "{{url}}", "type": "text"},
     {"name": "source_type", "value": "reddit", "type": "text"},
-    {"name": "title", "value": "{{selector:shreddit-post?post-title|trim}}", "type": "text"},
+    {"name": "title", "value": "{% set clipValue = selector:shreddit-post?post-title|trim %}{% if not clipValue %}{% set clipValue = title %}{% endif %}{% if not clipValue %}{% set clipValue = \"Başlıksız\" %}{% endif %}{{clipValue}}", "type": "text"},
     {"name": "subreddit", "value": "{{selector:shreddit-post?subreddit-prefixed-name}}", "type": "text"},
     {"name": "author", "value": "u/{{selector:shreddit-post?author}}", "type": "multitext"},
     {"name": "score", "value": "{{selector:shreddit-post?score}}", "type": "text"}

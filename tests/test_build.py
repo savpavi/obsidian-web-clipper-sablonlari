@@ -89,6 +89,11 @@ class BuildTest(unittest.TestCase):
         }
         self.assertEqual(set(sira), dosya_kokleri)
 
+    def test_kaydedilmis_ayarlar_sablonlarla_guncel(self):
+        """Şablon değişip import dosyası yeniden üretilmezse yakalar."""
+        kayit = json.loads((KOK / "obsidian-web-clipper-settings.json").read_text(encoding="utf-8"))
+        self.assertEqual(self.ayarlar, kayit)
+
 
 if __name__ == "__main__":
     unittest.main()

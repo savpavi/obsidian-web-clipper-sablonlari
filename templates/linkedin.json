@@ -8,8 +8,8 @@
     "/^https:\\/\\/(www\\.)?linkedin\\.com\\/posts\\//",
     "/^https:\\/\\/(www\\.)?linkedin\\.com\\/feed\\/update\\//"
   ],
-  "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- LinkedIn -- {{meta:property:og:title|split:\" on LinkedIn\"|first|safe_name:linux|slice:0,40}}",
-  "noteContentFormat": "{{content}}\n\n---\n\n## Notlar\n\n",
+  "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- LinkedIn -- {% set clipValue = meta:property:og:title|split:\" on LinkedIn\"|first %}{% if not clipValue %}{% set clipValue = title %}{% endif %}{% if not clipValue %}{% set clipValue = \"Başlıksız\" %}{% endif %}{{clipValue|safe_name:linux|slice:0,40}}",
+  "noteContentFormat": "{% if selection %}{{selection}}{% elseif meta:property:og:description %}{{meta:property:og:description|trim}}{% else %}Gönderi metni alınamadı. Sayfada metni seçip yeniden klipleyin.{% endif %}\n\nKaynak: {{url}}\n\n---\n\n## Notlar\n\n",
   "properties": [
     {"name": "type", "value": "referans", "type": "text"},
     {"name": "date", "value": "{{date|date:\"YYYY-MM-DD\"}}", "type": "date"},
@@ -17,7 +17,7 @@
     {"name": "tags", "value": "kaynak, kaynak/linkedin", "type": "multitext"},
     {"name": "source", "value": "{{url}}", "type": "text"},
     {"name": "source_type", "value": "linkedin", "type": "text"},
-    {"name": "title", "value": "{{meta:property:og:title|split:\" on LinkedIn\"|first}}", "type": "text"},
+    {"name": "title", "value": "{% set clipValue = meta:property:og:title|split:\" on LinkedIn\"|first %}{% if not clipValue %}{% set clipValue = title %}{% endif %}{% if not clipValue %}{% set clipValue = \"Başlıksız\" %}{% endif %}{{clipValue}}", "type": "text"},
     {"name": "author", "value": "{{meta:property:og:title|split:\" on LinkedIn\"|first}}", "type": "multitext"},
     {"name": "description", "value": "{{meta:property:og:description|slice:0,300}}", "type": "text"}
   ]

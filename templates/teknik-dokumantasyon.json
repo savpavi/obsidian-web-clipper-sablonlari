@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "0.1.0",
+  "name": "Teknik Dokümantasyon",
+  "behavior": "create",
+  "path": "00 Inbox",
+  "context": "",
+  "triggers": [
+    "/^https:\\/\\/github\\.com\\/[\\w.-]+\\/[\\w.-]+\\/(issues|pull)\\/\\d+\\/?(?:[?#].*)?$/",
+    "/^https:\\/\\/(help\\.obsidian\\.md|docs\\.python\\.org|developer\\.mozilla\\.org|wiki\\.archlinux\\.org)\\//",
+    "/^https:\\/\\/obsidian\\.md\\/help\\//",
+    "schema:@TechArticle",
+    "schema:@APIReference"
+  ],
+  "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} -- Teknik -- {% set clipValue = title %}{% if not clipValue %}{% set clipValue = \"Başlıksız doküman\" %}{% endif %}{{clipValue|safe_name:linux|slice:0,80}}",
+  "noteContentFormat": "{{content}}\n\nKaynak: {{url}}\n\n## Uygulama\n\n- Çözülen sorun / amaç:\n- Ortam ve sürüm:\n- Sonuç / doğrulama:\n\n## Notlar\n\n",
+  "properties": [
+    {"name": "type", "value": "referans", "type": "text"},
+    {"name": "date", "value": "{{date|date:\"YYYY-MM-DD\"}}", "type": "date"},
+    {"name": "created", "value": "{{date|date:\"YYYY-MM-DD\"}}", "type": "date"},
+    {"name": "tags", "value": "kaynak, kaynak/dokumantasyon, alan/teknik", "type": "multitext"},
+    {"name": "source", "value": "{{url}}", "type": "text"},
+    {"name": "source_type", "value": "teknik-dokumantasyon", "type": "text"},
+    {"name": "title", "value": "{% set clipValue = title %}{% if not clipValue %}{% set clipValue = \"Başlıksız\" %}{% endif %}{{clipValue}}", "type": "text"},
+    {"name": "author", "value": "{{author}}", "type": "multitext"},
+    {"name": "site", "value": "{{site}}", "type": "text"},
+    {"name": "description", "value": "{{description|slice:0,300}}", "type": "text"}
+  ]
+}
