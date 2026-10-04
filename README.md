@@ -1,8 +1,9 @@
 # Obsidian Web Clipper Şablon Seti
 
-13 şablonluk bir set. Hedef vault `~/Documents/Obsidian/Aktif Kasa/`; tüm
-şablonlar `00 Inbox` klasörüne not düşer, dağıtımı mevcut inbox-triage akışı
-yapar.
+> **English:** A set of 13 [Obsidian Web Clipper](https://obsidian.md/clipper) templates (YouTube, GitHub, X, Reddit, Instagram, LinkedIn, articles, products, job postings, technical docs, Ekşi Sözlük) with a Python build/validation step and tests. `build.py` compiles `templates/*.json` into one importable settings file; the integration test runs the templates through the official clipper engine. Notes, file names and docs are in Turkish.
+
+13 şablonluk bir set. Tüm şablonlar Obsidian vault'unun `00 Inbox` klasörüne
+not düşer; dosya adları `YYYY-MM-DD -- Kaynak -- Başlık` desenini izler.
 
 Her kaynak (YouTube, GitHub, X, Reddit, Instagram, LinkedIn, Ürün, Makale,
 Ekşi Entry, Ekşi Klip, İş İlanı, Teknik Dokümantasyon) için ayrı, dar bir şablon var; artı hiçbiri eşleşmezse
